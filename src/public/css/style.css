@@ -1,0 +1,366 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap");
+@import url('https://fonts.cdnfonts.com/css/sinami');
+@import url('https://fonts.cdnfonts.com/css/love-you');
+@import url('https://fonts.cdnfonts.com/css/thirty-seven');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+}
+
+/*CSS ROUTES*/
+.contain-return {
+  margin-bottom: 20px;
+}
+
+#return {
+  background-color: greenyellow;
+  color: black;
+  border-radius: 25px;
+  border: solid 3px black;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  transition: all 500ms ease;
+}
+#return:hover {
+  color: black;
+  width: 8em;
+  cursor: pointer;
+}
+
+/*CSS INDEX*/
+.tittle-index {
+  border: solid red 3px;
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+#Static {
+  height: 100px;
+  background-color: aquamarine;
+  color: black;
+  display: block;
+  position: static;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#Static:hover {
+  border: solid black 2px;
+  color: blue;
+}
+
+#Dinamic {
+  height: 100px;
+  background-color: pink;
+  color: black;
+  display: block;
+  position: static;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#Dinamic:hover {
+  border: solid black 2px;
+  color: blue;
+}
+
+/*CSS CONTENIDO DINAMICO*/
+.btnSave {
+  white-space: normal;
+  background: #250092;
+  color: rgb(246, 0, 0);
+  border: solid black 2px;
+  border-radius: 20px;
+  color: #ffffff;
+  font-family: 'Sinami', sans-serif;
+  font-size: 50px;
+  padding-top: 10px !important;
+  transition: all 500ms ease;
+}
+.btnSave:hover {
+  box-shadow: #9966cc 0px 0px 20px 0px;
+  background: rgb(0, 73, 189);
+  color: #ffff00;
+  cursor: pointer;
+}
+
+.btnCancel {
+  white-space: normal;
+  background: rgb(0, 201, 151);
+  border: solid black 2px;
+  border-radius: 20px;
+  color: #ffffff;
+  font-family: 'Sinami', sans-serif;
+  font-size: 50px;
+  padding-top: 10px !important;
+  transition: all 500ms ease;
+}
+.btnCancel:hover {
+  box-shadow: #00befe 0px 0px 10px 0px;
+  background: rgb(48, 238, 175);
+  color: #ff8000;
+  cursor: pointer;
+}
+.responsive-img {
+  object-fit: cover;
+  /*border: solid black 5px;*/
+  height: 100% !important;
+  position: relative;
+}
+.card-title {
+  opacity: 0.8;
+  color: black !important;
+  background-color: #9966cc;
+  height: auto;
+  text-align: center;
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  transition: all 500ms ease;
+}
+
+.card-title:hover { 
+  cursor: pointer;
+  width: 100%;
+  line-height: auto;
+  white-space:normal;
+  word-wrap: break-word;
+}
+
+/*CSS CONTENIDO ESTATICO*/
+
+#contain {
+  /*border: solid red 5px;*/
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  grid-template-rows: repeat(auto-fill,1fr);
+  grid-auto-flow: dense;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-gap:10px;
+}
+
+.card {
+  /*border: green solid 5px;*/
+  height:auto;
+}
+
+.card-image {
+  /*border: greenyellow solid 5px;*/
+  height: 50%;
+}
+
+.card-content {
+  /*border: orange solid 5px;*/
+  display: grid;
+  position: relative;
+  width: auto;
+  text-align: center;
+  font-size: medium;
+  height: 30%;
+  grid-template-columns: repeat(auto-fill, minmax(1fr,1fr));
+  grid-template-rows: repeat(auto-fill,1fr);
+  grid-auto-flow: dense;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-gap:auto;
+}
+.card-content-static {
+  /*border: orange solid 5px;*/
+  position: relative;
+  width: auto;
+  text-align: center;
+  font-size: large;
+  height: 50%;
+  grid-template-columns: repeat(auto-fill, minmax(1fr,1fr));
+  grid-template-rows: repeat(auto-fill,1fr);
+  grid-auto-flow: dense;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-gap:auto;
+  display: grid;
+  margin: 1em;
+  padding: 1em;
+}
+
+.card-content-static .card-description{
+  text-align: center;
+  /*outline: solid red 5px;*/
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  height: 1.5em;
+}
+
+.card-content-static .card-description:active{
+  position: relative;
+  overflow:visible;
+  white-space:normal;
+  word-break: break-word;
+  color: blue;
+}
+
+.card-content .card-description{
+  text-align: center;
+  /*outline: solid red 5px;*/
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  height: 1.5em;
+}
+
+.card-content .card-description:active{
+  position: relative;
+  overflow:visible;
+  white-space:normal;
+  word-break: break-word;
+  color: blue;
+}
+
+.card-action {
+  display: grid;
+  /*border: orange solid 5px;*/
+  height: 20%;
+}
+
+.card-action .btn{
+  /*border: blue solid 5px;*/
+  font-family: 'Thirty-Seven', sans-serif;
+  font-size: 30px;
+  height: fit-content;
+  width: 100%;
+  position: relative;
+  margin: auto;
+}
+#dinamic-contain {
+  position: sticky;
+  top: 35px;
+}
+
+h4{
+  font-size: 50px;
+  font-family: 'Sinami', sans-serif;
+}
+
+#dinamic-contain h3{
+  font-size: 75px;
+  font-family: 'Sinami', sans-serif;
+}
+
+#dinamic-contain label{
+  font-size: 25px;
+  font-family: 'Love You', sans-serif;
+}
+
+@media only screen and (max-width: 600px) {
+  /*.card {
+    border: red solid 5px;
+  }*/
+  #contain {
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    grid-template-rows: repeat(auto-fill,1fr);
+    grid-auto-flow: dense;
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    grid-column-gap:5px;
+  }
+  #dinamic-contain {
+    position: static;
+    margin-bottom: 120px;
+  }
+  #static-contain {
+    position: static;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  /*.card {
+    border: yellow solid 5px;
+  }*/
+
+  #contain {
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    grid-template-rows: repeat(auto-fill,1fr);
+    grid-auto-flow: dense;
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    grid-gap:5px;
+  }
+
+}
+
+.card-image .update::before{
+  content: "\f013";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  cursor: pointer;
+  top: 7px;
+  right: 7px;
+  color: silver;
+  border: solid black 1px;
+  font-size: 20px;
+  padding: 3px;
+}
+
+.card-image .reset::before{
+  content: "\f01e";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  cursor: pointer;
+  top: 7px;
+  right: 7px;
+  color: silver;
+  border: solid black 1px;
+  font-size: 20px;
+  padding: 3px;
+}
+
+.card-image .updating::before{
+  content: "\f01e"+"Updating";
+  pointer-events: none; 
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  cursor: pointer;
+  top: 7px;
+  right: 7px;
+  color: silver;
+  border: solid black 1px;
+  font-size: 20px;
+  padding: 3px;
+}
+
+.row{
+  margin: 0 8px;
+}
+
+.hidden {
+  display: none;
+}
