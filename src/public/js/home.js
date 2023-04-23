@@ -5,10 +5,14 @@ let protocol = window.location.protocol;
 let Url = protocol + "//" + URLdomain + "/api/products/";
 let btnsDelete;
 let opc = "update";
+let resExo=[];
 
 const labelContain = document.querySelectorAll(".input-field label");
-const h3Contain = document.querySelector("#dinamic-contain h3");
+const h3Contain = document.querySelector("#container h3");
 const form = document.querySelector("form");
+const fluid2 = document.querySelector("#container-fluid2");
+const cancelar = document.querySelector("#btnCancel");
+const validateProducts = document.querySelector("#validate");
 
 const inputTittle = document.querySelector("#tittle"),
   inputDescription = document.querySelector("#description"),
@@ -16,21 +20,21 @@ const inputTittle = document.querySelector("#tittle"),
   inputPrice = document.querySelector("#price"),
   inputStock = document.querySelector("#stock"),
   inputThumbnail = document.querySelector("#thumbnail"),
-  contain = document.querySelector("#contain");
+  contain = document.querySelector("#dinamic-contain");
+btn_return = document.querySelector("#btn-return");
 
 class NewProduct {
-  constructor(up) {
+  constructor() {
     this.tittle = inputTittle.value;
     this.description = inputDescription.value;
     this.code = +inputCode.value;
-    up ? (this.status = false) : (this.status = true);
+    this.status = true;
     this.stock = +inputStock.value;
     this.category = "Food";
     this.price = +inputPrice.value;
-    this.thumbnail =
-      inputThumbnail.value == ""
-        ? "https://energiaypotencia.com/img/imagen-no-disponible.jpg"
-        : inputThumbnail.value;
+    this.thumbnail = validarUrl()
+      ? inputThumbnail.value
+      : "https://energiaypotencia.com/img/imagen-no-disponible.jpg";
   }
 }
 
@@ -41,14 +45,11 @@ socket.on("products", async (getProducts) => {
 });
 
 //funciones
-async function crearHtml(idUpdating) {
+async function crearHtml() {
   contain.innerHTML = "";
   let html;
   for (const product of storeProducts) {
     if (product.status == false && opc == "update") continue;
-    if (idUpdating) {
-      product._id == idUpdating ? (opc = "updating") : (opc = "update");
-    }
     html = `<div class="card">
 <div class="card-image">
  <a class=${opc} href="/realtimeproducts/${product._id}"></a>
@@ -72,9 +73,19 @@ async function crearHtml(idUpdating) {
   return btnsDelete;
 }
 
+function validarUrl() {
+  try {
+    new URL(inputThumbnail.value);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
 async function selectAction() {
   if (storeProducts.length == 1) {
     //SE ASIGNA LA ACCION DE UPDATE
+    fluid2.classList.add("updating-product");
     h3Contain.innerHTML = "Update Product";
     inputTittle.value = storeProducts[0].tittle;
     inputDescription.value = storeProducts[0].description;
@@ -86,14 +97,17 @@ async function selectAction() {
       label.focus();
     });
     if (opc != "reset") {
-      const product = new NewProduct(1);
-      updateProducts(Url, product);
-      socket.emit("updatingProduct", "Actualizando " + storeProducts[0].tittle);
+      updateProducts(Url, storeProducts[0]._id, { status: false });
+      socket.emit(
+        "updatingProduct",
+        storeProducts[0].tittle + " actualizandose..."
+      );
       opc = "reset";
     } else {
       selectDelete();
     }
   } else {
+    fluid2.classList.remove("updating-product");
     h3Contain.innerHTML = "Ingresa un producto";
     opc = "update";
   }
@@ -164,9 +178,9 @@ async function postData(url, data) {
   }
 }
 
-async function updateProducts(url, data) {
+async function updateProducts(url, id, data) {
   try {
-    let key = url + storeProducts[0]._id;
+    let key = url + id;
     let response = await fetch(key, {
       method: "PUT",
       headers: {
@@ -238,7 +252,7 @@ async function selectDelete() {
 }
 
 async function pushData(data) {
-  storeProducts=await getData();
+  storeProducts = await getData();
   selectDelete();
   Swal.fire({
     title: "Product Added Successfully!",
@@ -261,7 +275,7 @@ function updateData(data) {
     if (result.isConfirmed) {
       Swal.fire({
         position: "center",
-        text: "Updated Product: " + data[0].tittle,
+        text: "Updated Product: " + data.tittle,
         icon: "success",
         title: "Product Update Successfully!",
         showConfirmButton: false,
@@ -278,33 +292,123 @@ function updateData(data) {
 }
 socket.on("f5NewProduct", async (msj) => {
   console.log(msj);
-  storeProducts = await getData();
-  selectDelete();
+  if (storeProducts.length != 1) {
+    storeProducts = await getData();
+    selectDelete();
+  }
 });
 
 socket.on("f5deleteProduct", async (msj) => {
   console.log(msj);
-  storeProducts = await getData();
-  selectDelete();
+  if (storeProducts.length != 1) {
+    storeProducts = await getData();
+    selectDelete();
+  }
 });
 
 socket.on("f5updateProduct", async (msj) => {
   console.log(msj);
-  storeProducts = await getData();
-  selectDelete();
+  if (storeProducts.length != 1) {
+    storeProducts = await getData();
+    selectDelete();
+  }
 });
 
-socket.on("update", async (msj) => {
+socket.on("updatingProduct", async (msj) => {
   console.log(msj);
-  storeProducts = await getData();
-  selectDelete();
+  if (storeProducts.length != 1) {
+    storeProducts = await getData();
+    selectDelete();
+  }else{
+    validateProducts.classList.add("hidden");
+  }
 });
+
+cancelar.onclick = () => {
+  if (storeProducts.length == 1) {
+    updateProducts(Url, storeProducts[0]._id, { status: true });
+    socket.emit("updateproduct", "Productos Actualizados");
+    window.location.href = "../realtimeproducts";
+  } else {
+    form.reset();
+  }
+};
+
+//***************************** PROCESO DE VALIDACION DE PRODUCTOS OCULTOS *********************************************//
+
+/*CUANDO UN USUARIO EDITA UN PRODUCTO, EL PRODUCTO ADQUIERE UNA PROPIEDAD DE STATUS FALSE, ESTO EVITARIA QUE OTRO USUARIO
+EDITE AL MISMO TIEMPO EL MISMO PRODUCTO. PERO SI EL USUARIO EDITOR NO GUARDA NI CANCELA LA EDICION, EL PRODUCTO QUEDA CON STATUS FALSE
+EVITANDO QUE EL PRODUCTO PUEDA SER MODIFICADO AUN CUANDO YA NADIE LO ESTA EDITANDO.
+ESTOS PRODUCTOS SERAN CONSIDERADOS COMO PRODUCTOS OCULTOS, ESTO SIGNIFICA QUE EL PRODUCTO NO SE MOSTRARA EN LA PAGINA DE PRODUCTOS.
+ENTONCES PARA QUE EL PRODUCTO VUELVA A MOSTRARSE EN LA PAGINA DE PRODUCTOS, SE DEBE VALIDAR EL PRODUCTO
+ESTO SE HACE CON EL BOTON DE VALIDAR PRODUCTOS (VALIDATE), EL CUAL LLAMA A LA FUNCION DE VALIDAR STATUS (validateStatus),
+ESTA FUNCION BUSCA LOS PRODUCTOS CON STATUS FALSE Y LOS DEVUELVE A TRUE MOSTRANDOLOS EN LA PAGINA DE PRODUCTOS Y PERMITIENDO SU MODIFICACION.
+UNA VEZ VALIDADOS LOS PRODUCTOS, SE ACTUALIZA LA PAGINA DE PRODUCTOS EN EL USUARIO ACTUAL Y TODOS LOS USUARIOS CONECTADOS EN TIEMPO REAL*/
+
+//*******************************PROCESO DE EXONERACION DE PRODUCTOS ACTUALIZANDOSE**************************************//
+
+/*CUANDO SE ACTIVA EL BOTON DE VALIDACION, SI UN PRODUCTO AUN ESTA SIENDO EDITADO POR OTRO USUARIO, ESTE PRODUCTO NO SE VALIDA
+Y ENTRA EN UN GRUPO DE EXONERACION, EL CUAL SE VALIDA CUANDO EL USUARIO QUE ESTA EDITANDO EL PRODUCTO LO GUARDA CORRECTAMENTE,
+CASO CONTRARIO SE EXCEPTA DEL GRUPO DE EXONERACION Y SOLO PODRA SER VALIDADO MEDIANTE EL BOTON DE VALIDACION DE PRODUCTOS.*/
+
+validateProducts.onclick = async () => {
+  try {
+    //console.log("Iniciando Validación de Productos");
+    socket.emit("exonerarStatus", "Exonerando Status");
+    const validProducts = await validarStatus(resExo);
+    //console.log("Productos Validados Correctamente" + validProducts);
+    //console.log("Vaciando arreglo de Exoneraciones");
+    resExo.length==0?socket.emit("finExo", "Exoneración Finalizada"):validateProducts.classList.remove("hidden");
+    resExo=[];
+    socket.emit("validateStatus", validProducts);
+  } catch {
+    console.log("Error al Validando Productos");
+  }
+};
+socket.on("ordenExonerar", async (msj) => {
+  console.log(msj);
+  if (storeProducts.length == 1) {
+    socket.emit("responseExonerar", storeProducts[0]._id);
+    //console.log("Response de producto a exonerar emitido");
+  }
+});
+
+socket.on("idExonerar", async (id) => {
+  //console.log("Id de exoneracion recibida: "+id);
+  resExo.push(id);
+  //console.log("Id de exoneracion agregada: "+resExo);
+});
+
+socket.on("actualizar", async (products) => {
+  console.log("Validacion Exitosa");
+  if (storeProducts.length != 1) {
+    storeProducts=products;
+    selectDelete();
+  }
+});
+
+socket.on("finValidate", async (msj) => {
+  console.log(msj);
+  validateProducts.classList.add("hidden");
+});
+
+async function validarStatus(idExo) {
+  let getProducts = await getData();
+  for (const product of getProducts) {
+    if (idExo.includes(product._id)) continue;
+    if (product.status == false) {
+      updateProducts(Url, product._id, { status: true });
+    }
+  }
+  const newProducts = await getData();
+  return newProducts;
+}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const product = new NewProduct();
   if (storeProducts.length == 1) {
-    updateProducts(Url, product)
+    updateProducts(Url, storeProducts[0]._id, product)
       .then((data) => {
         if (data == null) {
           Swal.fire({

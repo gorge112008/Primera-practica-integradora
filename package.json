@@ -30,5 +30,11 @@
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.22",
     "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "engines": {
+    "node": "14.0.0"
   }
 }

@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap");
-@import url('https://fonts.cdnfonts.com/css/sinami');
-@import url('https://fonts.cdnfonts.com/css/love-you');
-@import url('https://fonts.cdnfonts.com/css/thirty-seven');
-
+@import url("https://fonts.cdnfonts.com/css/sinami");
+@import url("https://fonts.cdnfonts.com/css/love-you");
+@import url("https://fonts.cdnfonts.com/css/thirty-seven");
+/*CSS ALL*/
 * {
   margin: 0;
   padding: 0;
@@ -10,83 +10,427 @@
   font-family: "Raleway", sans-serif;
 }
 
-/*CSS ROUTES*/
-.contain-return {
-  margin-bottom: 20px;
+.hidden {
+  display: none !important;
 }
 
-#return {
-  background-color: greenyellow;
-  color: black;
-  border-radius: 25px;
-  border: solid 3px black;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
-  transition: all 500ms ease;
+.hide {
+  left: -500px !important;
 }
-#return:hover {
+
+.field-box {
+  margin: 1px;
+}
+.updating-product {
+  position: sticky;
+  top: 15vh;
+  display: block;
+}
+
+/*CSS HEADER*/
+.menu {
+  margin: 0;
+  z-index: 50;
+  position: sticky;
+  top: 0;
+  height: auto;
+}
+.menu h2 {
+  margin: 0;
+  padding-left: 45px;
+}
+
+.menu-tittle {
+  display: block;
+  word-wrap: break-word;
+  background: linear-gradient(rgb(190, 240, 255), white);
+  position: relative;
+}
+
+.nav {
+  background-image: url("https://img.freepik.com/vector-gratis/fondo-degradado-cielo-pastel_23-2148917404.jpg?w=2000");
+  z-index: 2;
+}
+
+.menu-nav {
+  outline-offset: solid black 1px;
+}
+
+.menu-nav a {
+  border: solid black 1px;
   color: black;
-  width: 8em;
+  position: relative;
+  margin-top: 5px;
+  height: 85%;
+  width: 6vw;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.menu-nav a:hover {
   cursor: pointer;
+  background-color: rgb(0, 255, 195);
+}
+
+.menu-nav i {
+  position: relative;
+  top: 2vh;
+}
+
+.menu-nav b {
+  position: relative;
+}
+
+.tittle-index {
+  /*TITULO HEADER*/
+  outline: solid red 3px;
+  text-align: center;
+  font-family: "Love You", cursive;
+  font-size: 4em;
+  overflow: visible;
 }
 
 /*CSS INDEX*/
-.tittle-index {
-  border: solid red 3px;
-  text-align: center;
-  margin-bottom: 100px;
+.index-contain {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: sticky;
 }
 
-#Static {
-  height: 100px;
+.index-contain #Static {
+  /*STATIC BUTTON*/
   background-color: aquamarine;
   color: black;
-  display: block;
-  position: static;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-#Static:hover {
+  margin-top: 150px;
+  white-space: normal;
   border: solid black 2px;
-  color: blue;
+  border-radius: 20px;
+  font-family: "Sinami", sans-serif;
+  font-size: 50px;
+  padding: 15px;
+  padding-bottom: 5px;
+  transition: all 500ms ease;
 }
 
-#Dinamic {
-  height: 100px;
+.index-contain #Static:hover {
+  color: rgb(195, 7, 195);
+  box-shadow: #9966cc 0px 0px 20px 0px;
+  cursor: pointer;
+}
+
+.index-contain #Dinamic {
+  /*DINAMIC BUTTON*/
   background-color: pink;
   color: black;
-  display: block;
-  position: static;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin-top: 100px;
+  white-space: normal;
+  border: solid black 2px;
+  border-radius: 20px;
+  font-family: "Sinami", sans-serif;
+  font-size: 50px;
+  padding: 15px;
+  padding-bottom: 5px;
+  transition: all 500ms ease;
 }
 
-#Dinamic:hover {
+.index-contain #Dinamic:hover {
   border: solid black 2px;
   color: blue;
+  box-shadow: #9966cc 0px 0px 20px 0px;
+  cursor: pointer;
 }
 
-/*CSS CONTENIDO DINAMICO*/
+/*CSS MAIN*/
+.main {
+  margin: auto;
+  background: linear-gradient(white, rgb(190, 240, 255));
+  height: auto;
+  z-index: 0;
+}
+.estilo {
+  background-image: url("https://img.freepik.com/vector-gratis/fondo-degradado-cielo-pastel_23-2148917404.jpg?w=2000");
+  background-size: cover;
+  z-index: 1;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: block;
+}
+.barra {
+  outline: solid black 1px;
+  background-color: black;
+  height: 50%;
+  position: fixed;
+  z-index: 4;
+}
+#barra-menu {
+  background-color: white;
+  font-size: 3.5vw;
+  position: relative;
+  height: 100%;
+  border-bottom-right-radius: 30px;
+  z-index: 4;
+}
+
+#barra-menu i {
+  position: relative;
+  padding: 7px;
+  font-size: 20px;
+  z-index: 4;
+}
+#barra-menu:hover {
+  background: linear-gradient(rgb(190, 240, 255), white);
+  cursor: pointer;
+  z-index: 4;
+}
+
+/*FLUID CONTAINER 1*/
+#container-fluid1 {
+  position: absolute;
+  outline: solid black 3px;
+  background-color: #ffffff;
+  overflow: HIDDEN;
+  z-index: 2;
+  top: 0;
+  left: -46vw;
+  transition: all ease-in-out 700ms;
+  width: 40vw;
+  display: block;
+  height: auto;
+}
+
+.barra:hover > #container-fluid1 {
+  left: 38px;
+}
+
+.logo-box {
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  margin: auto;
+  height: 16vh;
+}
+
+.logo-img {
+  object-fit: cover;
+  height: 16vh;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  position: relative;
+}
+
+.dash-box {
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  height: 12vh;
+  display: flex;
+  align-items: center;
+}
+
+.dash-btn {
+  font-family: "Sinami", sans-serif;
+  font-size: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 90%;
+  border-radius: 15px;
+  background-color: #2755b8;
+  height: 6vh;
+}
+.dash-btn i {
+  display: inline-block;
+  height: 0;
+  font-size: 20px;
+  margin: 5px;
+  position: relative;
+  top: 20px;
+}
+
+.dash-btn:hover {
+  box-shadow: #00befe 0px 0px 10px 0px;
+  cursor: pointer;
+  background-color: #61bdff;
+}
+
+.option-box {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background-color: #ffffff;
+  outline: solid purple 5px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.option-box h6 {
+  background-color: #ffffff;
+  color: #9d00ff;
+  position: relative;
+  display: block;
+  text-align: start;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-family: "Love You", sans-serif;
+  font-size: 1.7em;
+}
+.option-box .nav__ul{
+  overflow: scroll;
+  height: 42vh;
+}
+
+.option-box .nav__li{
+  display: block;
+  width: 100%;
+}
+
+.option-btn {
+  color: black;
+  font-family: "Sinami", sans-serif;
+  font-size: 1.2em;
+  position: relative;
+  margin: 2px;
+  display: block ;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  margin-left: 15px;
+  padding-left: 10%;
+}
+
+.option-btn:hover {
+  box-shadow: #00befe 0px 0px 10px 0px;
+  border-radius: 15px;
+  outline: solid black 2px;
+  background-color: #84f9e9;
+  cursor: pointer;
+  color: orangered;
+  font-size: 1.3em;
+}
+.option-btn:active {
+  background-color: rgb(0, 136, 255);
+  cursor: wait;
+}
+
+.option-btn i {
+  display: inline-block;
+  height: 0;
+  font-size: 1em;
+  position: relative;
+  bottom: 1px;
+}
+
+.dinamic-row {
+  margin: 0;
+}
+
+.route {
+  position: relative;
+  background: none;
+  border: none;
+  text-align: start;
+  margin: 5px;
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+.route:hover {
+  background-color: #2755b8;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/*FLUID CONTAINER 2*/
+#container-fluid2 {
+  z-index: 1;
+  backdrop-filter: blur(100%);
+}
+
+#container-fluid2 h4 {
+  margin: 0;
+}
+
+#return {
+  /*RETURN BUTTON*/
+  background-color: greenyellow;
+  font-family: "Sinami", sans-serif;
+  color: black;
+  border-radius: 10px;
+  border: solid 3px black;
+  position: fixed;
+  display: hidden;
+  top: 0;
+  left: 0;
+  margin: 12px 5px;
+  width: 35px;
+  height: 35px;
+  font-size: 15px;
+  transition: all 600ms ease;
+  z-index: 100;
+  overflow: hidden;
+  padding-top: 10px;
+}
+
+#return i {
+  font-size: 20px;
+  position: relative;
+  bottom: 5px;
+}
+#return:hover {
+  color: rgb(38, 2, 108);
+  width: 8em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+/*CSS ROUTES*/
+/*CSS DINAMIC ROUTE*/
+#container {
+  position: sticky;
+  top: 8vh;
+  display: block;
+  margin: 0;
+}
+
+#container .dinamic-tittle {
+  margin: 0;
+  padding: 0;
+}
+
+#container h3 {
+  position: sticky;
+  margin: 0;
+  top: 0;
+  display: block;
+  margin-left: 0.2em;
+  font-size: 3.5em;
+  width: 100%;
+  font-family: "Sinami", sans-serif;
+}
+
+#container label {
+  font-size: 25px;
+  font-family: "Love You", sans-serif;
+}
+
 .btnSave {
+  /*SAVE BUTTON*/
   white-space: normal;
   background: #250092;
-  color: rgb(246, 0, 0);
   border: solid black 2px;
   border-radius: 20px;
   color: #ffffff;
-  font-family: 'Sinami', sans-serif;
-  font-size: 50px;
-  padding-top: 10px !important;
+  font-family: "Sinami", sans-serif;
+  font-size: 30px;
+  padding-top: 8px !important;
   transition: all 500ms ease;
 }
 .btnSave:hover {
@@ -97,13 +441,14 @@
 }
 
 .btnCancel {
+  /*CANCEL BUTTON*/
   white-space: normal;
   background: rgb(0, 201, 151);
   border: solid black 2px;
   border-radius: 20px;
   color: #ffffff;
-  font-family: 'Sinami', sans-serif;
-  font-size: 50px;
+  font-family: "Sinami", sans-serif;
+  font-size: 30px;
   padding-top: 10px !important;
   transition: all 500ms ease;
 }
@@ -113,54 +458,52 @@
   color: #ff8000;
   cursor: pointer;
 }
+
+#dinamic-contain {
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-auto-flow: dense;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-gap: 10px;
+}
+
+.card {
+  /*border: green solid 5px;*/
+  height: auto;
+}
+
+.card-image {
+  /*border: greenyellow solid 5px;*/
+  height: 50%;
+}
 .responsive-img {
   object-fit: cover;
   /*border: solid black 5px;*/
   height: 100% !important;
   position: relative;
 }
+
 .card-title {
   opacity: 0.8;
   color: black !important;
   background-color: #9966cc;
   height: auto;
   text-align: center;
-  white-space:nowrap;
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
   transition: all 500ms ease;
 }
 
-.card-title:hover { 
+.card-title:hover {
   cursor: pointer;
   width: 100%;
   line-height: auto;
-  white-space:normal;
+  white-space: normal;
   word-wrap: break-word;
-}
-
-/*CSS CONTENIDO ESTATICO*/
-
-#contain {
-  /*border: solid red 5px;*/
-  display: grid;
-  flex-wrap: wrap;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  grid-template-rows: repeat(auto-fill,1fr);
-  grid-auto-flow: dense;
-  grid-auto-rows: 1fr;
-  grid-auto-columns: 1fr;
-  grid-gap:10px;
-}
-
-.card {
-  /*border: green solid 5px;*/
-  height:auto;
-}
-
-.card-image {
-  /*border: greenyellow solid 5px;*/
-  height: 50%;
 }
 
 .card-content {
@@ -171,35 +514,18 @@
   text-align: center;
   font-size: medium;
   height: 30%;
-  grid-template-columns: repeat(auto-fill, minmax(1fr,1fr));
-  grid-template-rows: repeat(auto-fill,1fr);
+  grid-template-columns: repeat(auto-fill, minmax(1fr, 1fr));
+  grid-template-rows: repeat(auto-fill, 1fr);
   grid-auto-flow: dense;
   grid-auto-rows: 1fr;
   grid-auto-columns: 1fr;
-  grid-gap:auto;
-}
-.card-content-static {
-  /*border: orange solid 5px;*/
-  position: relative;
-  width: auto;
-  text-align: center;
-  font-size: large;
-  height: 50%;
-  grid-template-columns: repeat(auto-fill, minmax(1fr,1fr));
-  grid-template-rows: repeat(auto-fill,1fr);
-  grid-auto-flow: dense;
-  grid-auto-rows: 1fr;
-  grid-auto-columns: 1fr;
-  grid-gap:auto;
-  display: grid;
-  margin: 1em;
-  padding: 1em;
+  grid-gap: auto;
 }
 
-.card-content-static .card-description{
+.card-content .card-description {
   text-align: center;
   /*outline: solid red 5px;*/
-  overflow:hidden;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   display: block;
@@ -208,30 +534,10 @@
   height: 1.5em;
 }
 
-.card-content-static .card-description:active{
+.card-content .card-description:active {
   position: relative;
-  overflow:visible;
-  white-space:normal;
-  word-break: break-word;
-  color: blue;
-}
-
-.card-content .card-description{
-  text-align: center;
-  /*outline: solid red 5px;*/
-  overflow:hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  display: block;
-  position: relative;
-  cursor: pointer;
-  height: 1.5em;
-}
-
-.card-content .card-description:active{
-  position: relative;
-  overflow:visible;
-  white-space:normal;
+  overflow: visible;
+  white-space: normal;
   word-break: break-word;
   color: blue;
 }
@@ -242,73 +548,17 @@
   height: 20%;
 }
 
-.card-action .btn{
+.card-action .btn {
   /*border: blue solid 5px;*/
-  font-family: 'Thirty-Seven', sans-serif;
+  font-family: "Thirty-Seven", sans-serif;
   font-size: 30px;
   height: fit-content;
   width: 100%;
   position: relative;
   margin: auto;
 }
-#dinamic-contain {
-  position: sticky;
-  top: 35px;
-}
 
-h4{
-  font-size: 50px;
-  font-family: 'Sinami', sans-serif;
-}
-
-#dinamic-contain h3{
-  font-size: 75px;
-  font-family: 'Sinami', sans-serif;
-}
-
-#dinamic-contain label{
-  font-size: 25px;
-  font-family: 'Love You', sans-serif;
-}
-
-@media only screen and (max-width: 600px) {
-  /*.card {
-    border: red solid 5px;
-  }*/
-  #contain {
-    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-    grid-template-rows: repeat(auto-fill,1fr);
-    grid-auto-flow: dense;
-    grid-auto-rows: 1fr;
-    grid-auto-columns: 1fr;
-    grid-column-gap:5px;
-  }
-  #dinamic-contain {
-    position: static;
-    margin-bottom: 120px;
-  }
-  #static-contain {
-    position: static;
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  /*.card {
-    border: yellow solid 5px;
-  }*/
-
-  #contain {
-    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-    grid-template-rows: repeat(auto-fill,1fr);
-    grid-auto-flow: dense;
-    grid-auto-rows: 1fr;
-    grid-auto-columns: 1fr;
-    grid-gap:5px;
-  }
-
-}
-
-.card-image .update::before{
+.card-image .update::before {
   content: "\f013";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
@@ -324,7 +574,7 @@ h4{
   padding: 3px;
 }
 
-.card-image .reset::before{
+.card-image .reset::before {
   content: "\f01e";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
@@ -340,9 +590,9 @@ h4{
   padding: 3px;
 }
 
-.card-image .updating::before{
+.card-image .updating::before {
   content: "\f01e"+"Updating";
-  pointer-events: none; 
+  pointer-events: none;
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   position: absolute;
@@ -357,10 +607,200 @@ h4{
   padding: 3px;
 }
 
-.row{
-  margin: 0 8px;
+/*CSS STATIC ROUTE*/
+.static-tittle {
+  background-color: white;
+  position: sticky;
+  top: 8.5vh;
+  display: block;
+  z-index: 1;
 }
 
-.hidden {
-  display: none;
+.static-tittle h4 {
+  margin: 0;
+  position: static;
+  font-size: 50px;
+  font-family: "Sinami", sans-serif;
+}
+
+#static-contain {
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-auto-flow: dense;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-gap: 10px;
+}
+
+.card-content-static {
+  /*border: orange solid 5px;*/
+  position: relative;
+  width: auto;
+  text-align: center;
+  font-size: large;
+  height: 50%;
+  grid-template-columns: repeat(auto-fill, minmax(1fr, 1fr));
+  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-auto-flow: dense;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-gap: auto;
+  display: grid;
+  margin: 1em;
+  padding: 1em;
+}
+
+.card-content-static .card-description {
+  text-align: center;
+  /*outline: solid red 5px;*/
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  height: 1.5em;
+}
+
+.card-content-static .card-description:active {
+  position: relative;
+  overflow: visible;
+  white-space: normal;
+  word-break: break-word;
+  color: blue;
+}
+
+/*CSS DEVICES*/
+
+/*CSS DEVICE < 600px (CEL)*/
+
+@media only screen and (max-width: 600px) {
+  /*.card {
+    border: red solid 5px;
+  }*/
+  /*MAIN*/
+  #container-fluid1 {
+    width: 45vw !important;
+  }
+  /*DINAMIC*/
+  #dinamic-contain {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-auto-flow: dense;
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    grid-column-gap: 5px;
+  }
+  #container {
+    top: 16vh;
+  }
+  /*STATIC*/
+  .static-tittle {
+    top: 16.5vh;
+  }
+  #static-contain {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-auto-flow: dense;
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    grid-column-gap: 5px;
+  }
+  .menu-nav i {
+    position: relative;
+    top: 1.7vh;
+  }
+  .field-box div{
+    margin: 0;
+  }
+  #container h3 {
+    font-size: 3em;
+    width: 100%;
+  }
+}
+/*CSS DEVICE > 992px (LAP)*/
+
+@media only screen and (min-width: 992px) {
+  /*.card {
+    border: yellow solid 5px;
+  }*/
+  /*MAIN*/
+  #container-fluid1 {
+    width: 20vw !important;
+  }
+  /*DINAMIC*/
+  #dinamic-contain {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-auto-flow: dense;
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    grid-gap: 5px;
+  }
+  /*STATIC*/
+  .static-tittle {
+    top: 9vh !important;
+  }
+  #static-contain {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-auto-flow: dense;
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    grid-gap: 5px;
+  }
+  .menu-nav a{
+    width: 7.5vw !important;
+    align-items: start;
+  }
+  .menu-nav i {
+    position: relative;
+    right: 0.2vw;
+    top: 0.05vh;
+  }
+  .menu-nav b{
+    bottom: 0.6vh;
+  }
+  .menu-nav a {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 30px;
+  width: 100%;
+  background: linear-gradient(white, rgb(190, 240, 255));
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+}
+
+#validate{
+  background-color: red;
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-family: "Love You", sans-serif;
+  color: black;
+  border-radius: 10px;
+  border: solid 2px black;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  transition: all 100ms ease;
+}
+
+#validate:hover {
+  color: rgb(38, 2, 108);
+  width: 4em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
 }

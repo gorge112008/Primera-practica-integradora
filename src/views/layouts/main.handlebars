@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html >
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,14 +10,75 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
-    <link href="https://fonts.cdnfonts.com/css/sinami" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/love-you" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/thirty-seven" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/sinami" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/love-you" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/thirty-seven" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css" />
-    <script src="https://kit.fontawesome.com/ddc8b3b9c4.js" crossorigin="anonymous"></script>
-    <title>WEBSOCKETS</title>
+    <script
+      src="https://kit.fontawesome.com/ddc8b3b9c4.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>PRACTICA-INTEGRADORA</title>
+    <div class="menu row">
+      <div class="menu-tittle"><H2 class="tittle-index">Primera Práctica
+          Integradora</H2>
+      </div>
+    </div>
   </head>
   <body>
-    {{{body}}}
+    <header>
+      <nav class="nav">
+        <div class="row">        
+        <div class="col s6"></div>
+        <div class="menu-nav col s1"><a href="../home" type="button"><i class="fas fa-arrows-to-dot"></i><b> Static</b></a></div>
+        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="fas fa-arrows-spin"></i><b> Dinamic</b></a></div>
+        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="fa light fa-utensils"></i><b> Products</b></a></div>
+        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="fa light fa-cart-shopping"></i><b> Carts</b></a></div>
+        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="far fa-comments"></i><b> Messages</b></a></div>
+        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="far fa-face-smile"></i><b> Perfil</b></a></div>
+        <div class="barra row"><button type="button" id="barra-menu"><i class="fas fa-light fa-right-from-bracket"></i></button>
+        <div id="container-fluid1">
+          <div class="logo-box">
+            <img
+              class="logo-img"
+              src="https://png.pngtree.com/png-vector/20190329/ourlarge/pngtree-restaurant-logo-template-design-restaurant-logo-with-modern-frame-isolated-png-image_887423.jpg"
+            />
+          </div>
+          <div class="dash-box">
+            <button type="button" class="dash-btn"><i class="fas fa-light fa-right-from-bracket fa-rotate-180"></i>Dashboard</button>
+          </div>
+          <div class="option-box">
+            <h6><button type="button" class="fas fa-bars route"></button>
+              OPTIONS</h6>
+            <hr />
+            <ul class="nav__ul">
+              <li class="nav__li">
+                <a href="../home" type="button" class=" option-btn"><i class="fas fa-arrows-to-dot"></i><b> Static</b></a>
+              </li>
+              <li class="nav__li">
+                <a href="../realtimeproducts" type="button" class=" option-btn"><i class="fas fa-arrows-spin"></i><b> Dinamic</b></a>
+              </li>
+              <li class="nav__li">
+                <a href="../realtimeproducts" type="button" class=" option-btn"><i class="fa light fa-utensils"></i><b> Products</b></a>
+              </li>
+              <li class="nav__li">
+                <a href="../realtimeproducts" type="button" class=" option-btn"><i class="fa light fa-cart-shopping"></i><b> Carts</b></a>
+              </li>
+              <li class="nav__li">
+                <a href="../realtimeproducts" type="button" class=" option-btn"><i class="far fa-comments"></i><b> Messages</b></a>
+              </li>
+              <li class="nav__li">
+                <a href="../realtimeproducts" type="button" class=" option-btn"><i class="far fa-face-smile"></i><b> Login</b></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+      </nav>
+    </header>
+    <div class="main row">
+      {{{body}}}
+    </div>
   </body>
+  <footer><b>CODERHOUSE: Jorge Carlos Gayoso Ugas.</b></footer>
 </html>
