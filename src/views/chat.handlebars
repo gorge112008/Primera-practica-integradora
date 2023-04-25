@@ -1,0 +1,46 @@
+<div class="col s1 estilo"></div>
+<div id="container-fluid2" class="col s10">
+  <div class="chat-tittle row"><h4>Chat Comunitario</h4></div>
+  <div class="row">
+    <div class="chat-window">
+      <u class="chat-window-response"><i>{{response}}</u></i>
+      <div id="messageLogs">
+        <!-- Contain Dinamic -->
+      </div>
+    </div>
+  </div>
+  <div class="boxe row">
+      <div class=" col s10 m10 l10">
+        <div class="chat-input-window">
+      <input
+        type="text"
+        placeholder="Escribe un mensaje..."
+        name="message"
+        id="chatBox"
+      />
+        </div>
+      </div>
+      <div class=" col s2 m2 l2">
+        <div class="chat-input-button">
+      <button>Enviar</button>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="col s1 estilo"></div>
+<a href="/" type="button" id="return"><i
+    class="fas fa-light fa-reply-all"
+  ></i>RETURN</a>
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/toastify-js"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.all.min.js"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/chat.js"></script>

@@ -2,22 +2,27 @@
 @import url("https://fonts.cdnfonts.com/css/sinami");
 @import url("https://fonts.cdnfonts.com/css/love-you");
 @import url("https://fonts.cdnfonts.com/css/thirty-seven");
-/*CSS ALL*/
+@import url('https://fonts.cdnfonts.com/css/g-glegar');
+@import url('https://fonts.cdnfonts.com/css/tt-marxiana-trial');
+@import url('https://fonts.cdnfonts.com/css/dec-terminal-modern');
+@import url('https://fonts.cdnfonts.com/css/capriola-buisiness');
+       
+/*ALL BLOCK*/
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Raleway", sans-serif;
 }
-
 .hidden {
   display: none !important;
 }
-
-.hide {
-  left: -500px !important;
-}
-
+.keep{
+  border: solid yellow 3px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  left: 8vw !important;
+ }
 .field-box {
   margin: 1px;
 }
@@ -27,36 +32,52 @@
   display: block;
 }
 
-/*CSS HEADER*/
-.menu {
+/*HEADER BLOCK*/
+.head{
   margin: 0;
   z-index: 50;
   position: sticky;
   top: 0;
   height: auto;
 }
-.menu h2 {
-  margin: 0;
-  padding-left: 45px;
-}
-
-.menu-tittle {
+.head__container{
   display: block;
   word-wrap: break-word;
   background: linear-gradient(rgb(190, 240, 255), white);
   position: relative;
 }
+.head__container-h2{
+  margin: 0;
+  padding-left: 2.8125rem;
+  border: solid rgb(182, 179, 179) 3px;
+  text-align: center;
+  font-family: "Love You", cursive;
+  font-size: 4em;
+  overflow: visible;
+}
 
+/*NAVIGATION BLOCK*/
 .nav {
   background-image: url("https://img.freepik.com/vector-gratis/fondo-degradado-cielo-pastel_23-2148917404.jpg?w=2000");
   z-index: 2;
 }
-
-.menu-nav {
+.nav__container-email-logged{
+  color: black;
+  position: relative;
+  margin-top: 5px;
+  height: 85%;
+  width: 6vw;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/*NAVIGATION BLOCK REF*/
+.nav__container-ref {
   outline-offset: solid black 1px;
 }
-
-.menu-nav a {
+.nav__container-ref a{
   border: solid black 1px;
   color: black;
   position: relative;
@@ -67,28 +88,70 @@
   text-align: center;
   overflow: hidden;
 }
-
-.menu-nav a:hover {
+.nav__container-ref a:hover {
   cursor: pointer;
   background-color: rgb(0, 255, 195);
+  box-shadow: #2cfff1 0px 0px 15px 0px;
 }
-
-.menu-nav i {
+.nav__container-ref i{
   position: relative;
   top: 2vh;
 }
-
-.menu-nav b {
+.nav__container-ref b{
   position: relative;
 }
-
-.tittle-index {
-  /*TITULO HEADER*/
-  outline: solid red 3px;
-  text-align: center;
-  font-family: "Love You", cursive;
-  font-size: 4em;
-  overflow: visible;
+/*NAVIGATION BLOCK BAR*/
+.nav__container-bar{
+  height: 50vh;
+  position: fixed;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  background-color: #9d00ff;
+  transition: all ease-in-out 500ms;
+}
+.nav__container-bar:hover > .nav__container__bar-menu {
+  left: 8vw;
+}
+.nav__container-bar-dropdown{
+  background-color: white;
+  font-size: 3.5vw;
+  position: relative;
+  height: 100%;
+  border-bottom-right-radius: 30px;
+  z-index: 4;
+  width: 8vw;
+  display: flex;
+  align-items: center;
+}
+.nav__container-bar-dropdown i {
+  display: flex;
+  align-items: center;
+  padding: 2vw;
+  position: relative;
+  font-size: 100%;
+  z-index: 4;
+}
+.nav__container-bar-dropdown:hover {
+  background: linear-gradient(rgb(190, 240, 255), white);
+  cursor: pointer;
+  z-index: 4;
+}
+.nav__container__bar-menu {
+  position: absolute;
+  outline: solid black 1px;
+  background-color: #ffffff;
+  overflow: hidden;
+  z-index: 2;
+  top: 0;
+  left: -46vw;
+  transition: all ease-in-out 700ms;
+  width: 42vw;
+  display: block;
+  height: auto;
 }
 
 /*CSS INDEX*/
@@ -104,12 +167,12 @@
   /*STATIC BUTTON*/
   background-color: aquamarine;
   color: black;
-  margin-top: 150px;
+  margin-top: 100px;
   white-space: normal;
   border: solid black 2px;
   border-radius: 20px;
   font-family: "Sinami", sans-serif;
-  font-size: 50px;
+  font-size: 3.125rem;
   padding: 15px;
   padding-bottom: 5px;
   transition: all 500ms ease;
@@ -123,20 +186,42 @@
 
 .index-contain #Dinamic {
   /*DINAMIC BUTTON*/
-  background-color: pink;
+  background-color: rgb(96, 104, 255);
   color: black;
-  margin-top: 100px;
+  margin-top: 50px;
   white-space: normal;
   border: solid black 2px;
   border-radius: 20px;
   font-family: "Sinami", sans-serif;
-  font-size: 50px;
+  font-size: 3.125rem;
   padding: 15px;
   padding-bottom: 5px;
   transition: all 500ms ease;
 }
 
 .index-contain #Dinamic:hover {
+  border: solid black 2px;
+  color: rgb(255, 196, 0);
+  box-shadow: #9966cc 0px 0px 20px 0px;
+  cursor: pointer;
+}
+
+.index-contain #Chat {
+  /*DINAMIC BUTTON*/
+  background-color: pink;
+  color: black;
+  margin-top: 80px;
+  white-space: normal;
+  border: solid black 2px;
+  border-radius: 20px;
+  font-family: "Sinami", sans-serif;
+  font-size: 3.125rem;
+  padding: 15px;
+  padding-bottom: 5px;
+  transition: all 500ms ease;
+}
+
+.index-contain #Chat:hover {
   border: solid black 2px;
   color: blue;
   box-shadow: #9966cc 0px 0px 20px 0px;
@@ -158,52 +243,6 @@
   position: sticky;
   top: 0;
   display: block;
-}
-.barra {
-  outline: solid black 1px;
-  background-color: black;
-  height: 50%;
-  position: fixed;
-  z-index: 4;
-}
-#barra-menu {
-  background-color: white;
-  font-size: 3.5vw;
-  position: relative;
-  height: 100%;
-  border-bottom-right-radius: 30px;
-  z-index: 4;
-}
-
-#barra-menu i {
-  position: relative;
-  padding: 7px;
-  font-size: 20px;
-  z-index: 4;
-}
-#barra-menu:hover {
-  background: linear-gradient(rgb(190, 240, 255), white);
-  cursor: pointer;
-  z-index: 4;
-}
-
-/*FLUID CONTAINER 1*/
-#container-fluid1 {
-  position: absolute;
-  outline: solid black 3px;
-  background-color: #ffffff;
-  overflow: HIDDEN;
-  z-index: 2;
-  top: 0;
-  left: -46vw;
-  transition: all ease-in-out 700ms;
-  width: 40vw;
-  display: block;
-  height: auto;
-}
-
-.barra:hover > #container-fluid1 {
-  left: 38px;
 }
 
 .logo-box {
@@ -283,7 +322,7 @@
 }
 .option-box .nav__ul{
   overflow: scroll;
-  height: 42vh;
+  height: 44vh;
 }
 
 .option-box .nav__li{
@@ -359,33 +398,56 @@
 
 #return {
   /*RETURN BUTTON*/
-  background-color: greenyellow;
-  font-family: "Sinami", sans-serif;
-  color: black;
-  border-radius: 10px;
-  border: solid 3px black;
   position: fixed;
-  display: hidden;
   top: 0;
   left: 0;
-  margin: 12px 5px;
-  width: 35px;
-  height: 35px;
-  font-size: 15px;
+  background-color: greenyellow;
   transition: all 600ms ease;
   z-index: 100;
+  border-radius: 10px;
+  margin: 5px;
+  width: 9vw;
+  display: flex;
+  align-items: center;
+}
+
+#return a{
+  font-size: 1.5rem;
+  border: solid black 1px;
+  color: black;
+  position: relative;
+  height: 5vh;
+  width: 100%;
+  border-radius: 10px;
+  text-align: center;
   overflow: hidden;
-  padding-top: 10px;
+  white-space: nowrap;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: start;
+  text-overflow: ellipsis;
+}
+
+#return a:hover{
+  color: rgb(15, 6, 140);
+  box-shadow: #9966cc 0px 0px 20px 0px;
+}
+
+#return b{
+  font-family: "thirty-seven", sans-serif;
 }
 
 #return i {
-  font-size: 20px;
   position: relative;
-  bottom: 5px;
+  margin: 7px;
+  left: 0;
+  font-size: 1.625rem;
+  position: relative;
 }
 #return:hover {
   color: rgb(38, 2, 108);
-  width: 8em;
+  width: 30vw;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -398,6 +460,7 @@
   top: 8vh;
   display: block;
   margin: 0;
+  padding-top: 10px;
 }
 
 #container .dinamic-tittle {
@@ -410,14 +473,14 @@
   margin: 0;
   top: 0;
   display: block;
-  margin-left: 0.2em;
-  font-size: 3.5em;
+  margin-left: 2px;
+  font-size: 3.5rem;
   width: 100%;
   font-family: "Sinami", sans-serif;
 }
 
 #container label {
-  font-size: 25px;
+  font-size: 1.5rem;
   font-family: "Love You", sans-serif;
 }
 
@@ -429,7 +492,7 @@
   border-radius: 20px;
   color: #ffffff;
   font-family: "Sinami", sans-serif;
-  font-size: 30px;
+  font-size: 1.875rem;
   padding-top: 8px !important;
   transition: all 500ms ease;
 }
@@ -448,7 +511,7 @@
   border-radius: 20px;
   color: #ffffff;
   font-family: "Sinami", sans-serif;
-  font-size: 30px;
+  font-size: 1.875rem;
   padding-top: 10px !important;
   transition: all 500ms ease;
 }
@@ -531,7 +594,8 @@
   display: block;
   position: relative;
   cursor: pointer;
-  height: 1.5em;
+  height: 3vh;
+  width: 100%;
 }
 
 .card-content .card-description:active {
@@ -551,7 +615,7 @@
 .card-action .btn {
   /*border: blue solid 5px;*/
   font-family: "Thirty-Seven", sans-serif;
-  font-size: 30px;
+  font-size: 1.875rem;
   height: fit-content;
   width: 100%;
   position: relative;
@@ -570,7 +634,7 @@
   right: 7px;
   color: silver;
   border: solid black 1px;
-  font-size: 20px;
+  font-size: 1.25rem;
   padding: 3px;
 }
 
@@ -586,7 +650,7 @@
   right: 7px;
   color: silver;
   border: solid black 1px;
-  font-size: 20px;
+  font-size: 1.25rem;
   padding: 3px;
 }
 
@@ -603,7 +667,7 @@
   right: 7px;
   color: silver;
   border: solid black 1px;
-  font-size: 20px;
+  font-size: 1.25rem;
   padding: 3px;
 }
 
@@ -619,7 +683,7 @@
 .static-tittle h4 {
   margin: 0;
   position: static;
-  font-size: 50px;
+  font-size: 2.875rem;
   font-family: "Sinami", sans-serif;
 }
 
@@ -672,16 +736,36 @@
   color: blue;
 }
 
+/*CSS CHAT ROUTE*/
+.chat-tittle {
+  background-color: white;
+  position: sticky;
+  top: 8.5vh;
+  display: flex;
+  z-index: 1;
+  justify-content: center;
+}
+
+.chat-tittle h4{
+  text-align: center;
+  margin-top: 10px !important;
+  position: relative;
+  color: #9d00ff;
+  font-size: 6vw;
+  font-family: "Sinami", sans-serif;
+}
+
+
 /*CSS DEVICES*/
 
-/*CSS DEVICE < 600px (CEL)*/
+/*CSS DEVICE < 600px (37.5rem)(base 1rem=16px) (CEL)*/
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 37.5rem) {
   /*.card {
     border: red solid 5px;
   }*/
   /*MAIN*/
-  #container-fluid1 {
+  .nav__container__bar-menu {
     width: 45vw !important;
   }
   /*DINAMIC*/
@@ -700,6 +784,13 @@
   .static-tittle {
     top: 16.5vh;
   }
+  .chat-tittle {
+    top: 16.5vh;
+  }
+  .chat-tittle h4{
+    font-size: 5vh;
+  }
+
   #static-contain {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-template-rows: repeat(auto-fill, 1fr);
@@ -708,7 +799,7 @@
     grid-auto-columns: 1fr;
     grid-column-gap: 5px;
   }
-  .menu-nav i {
+  .nav__container-ref i {
     position: relative;
     top: 1.7vh;
   }
@@ -719,20 +810,24 @@
     font-size: 3em;
     width: 100%;
   }
+  .nav__container-bar{
+    height: 20vh;
+  }
 }
-/*CSS DEVICE > 992px (LAP)*/
 
-@media only screen and (min-width: 992px) {
+/*CSS DEVICE > 992px (62rem) (base 16px=1rem) (LAP)*/
+
+@media only screen and (min-width: 62rem) {
   /*.card {
     border: yellow solid 5px;
   }*/
   /*MAIN*/
-  #container-fluid1 {
+  .nav__container__bar-menu {
     width: 20vw !important;
   }
   /*DINAMIC*/
   #dinamic-contain {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
     grid-template-rows: repeat(auto-fill, 1fr);
     grid-auto-flow: dense;
     grid-auto-rows: 1fr;
@@ -743,29 +838,52 @@
   .static-tittle {
     top: 9vh !important;
   }
+  .chat-tittle {
+    top: 9vh;
+  }
+  .chat-tittle h4{
+    font-size:4vw !important;
+  }
+
   #static-contain {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
     grid-template-rows: repeat(auto-fill, 1fr);
     grid-auto-flow: dense;
     grid-auto-rows: 1fr;
     grid-auto-columns: 1fr;
     grid-gap: 5px;
   }
-  .menu-nav a{
+  .nav__container-ref a{
     width: 7.5vw !important;
     align-items: start;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
-  .menu-nav i {
+  .nav__container-ref i {
     position: relative;
     right: 0.2vw;
     top: 0.05vh;
   }
-  .menu-nav b{
+  .nav__container-ref b{
     bottom: 0.6vh;
   }
-  .menu-nav a {
+
+  #return a{
+    align-items: start;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+  #return i {
+    position: relative;
+    right: 0.2vw;
+    top: 0.05vh;
+  }
+  #return b{
+    bottom: 0.6vh;
+  }
+
+  .nav__container-bar{
+    height: 80vh;
   }
 }
 
@@ -773,7 +891,7 @@ footer {
   position: fixed;
   left: 0px;
   bottom: 0px;
-  height: 30px;
+  height: 4vh;
   width: 100%;
   background: linear-gradient(white, rgb(190, 240, 255));
   z-index: 4;
@@ -782,7 +900,7 @@ footer {
 }
 
 #validate{
-  background-color: red;
+  background-color: greenyellow;
   z-index: 100;
   position: fixed;
   bottom: 0;
@@ -791,16 +909,144 @@ footer {
   color: black;
   border-radius: 10px;
   border: solid 2px black;
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
-  transition: all 100ms ease;
+  width: 14vw;
+  height: 4vh;
+  font-size: 1.25rem;
+  transition: all 400ms ease;
 }
 
 #validate:hover {
   color: rgb(38, 2, 108);
-  width: 4em;
+  width: 16vw;
   cursor: pointer;
+  box-shadow: #2cff37 0px 0px 15px 0px;
+}
+
+.chat-window {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  padding-bottom: 10vh;
+}
+
+.chat-window-response {
+  padding: 17px;
+}
+
+#messageLogs{
+  position: relative;
+  outline: solid black 2px;
+  width: 100%;
+  height: auto;
+}
+
+.chat-message {
+  display: flex;
+  margin: 10px 0;
+}
+
+.chat-message .message-bubble {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  margin-left: 10px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: solid 1px #ddd;
+}
+.message-sender {
+  font-size: 0.9375rem;
+  color: black;
+  margin-bottom: 5px;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.socketid {
+  font-size: 8px;
+  color: #777;
+}
+
+.chat-message .message-bubble p {
+  margin: 0;
+  height: 100%;
+  background-color: #ffffff;
+  color: black;
+  font-size: 1rem;
+  border: none;
+  cursor: text;
+}
+
+.chat-input-window {
+  background-color: white;
+  border-top: 1px solid #ddd;
+  padding: 0 20px;
+}
+
+.chat-input-window input {
+  flex: 1;
+  border: none;
+  font-size: 1rem;
+}
+.chat-input-window input:hover {
+  cursor: text;
+}
+
+.chat-input-button {
+  background-color: greenyellow;
+
+}
+
+.chat-input-button button{
+  flex: 1;
+  border: solid black 1px;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.chat-login-tittle{
+  color: rgb(46, 12, 200);
+  font-family: "g Glegar", sans-serif;
+  font-size: 2.5rem;
+}
+
+.chat-login-text{
+  color: black;
+  font-family: "DEC Terminal Modern", sans-serif;
+  font-size: 2rem;
+}
+
+.chat-login-confirm{
+  font-family: "TT Marxiana Trial", sans-serif;
+  font-size: 1.25rem;
+  color: rgb(246, 255, 0);
+}
+
+.chat-login-validator{
+  color: red;
+  font-family: "Love You", sans-serif;
+  font-size: 1.25rem;
+}
+
+.chat-login-notification{
+  font-size: auto;
+  color: black;
+  font-family: 'Gentium Plus', sans-serif;
+}
+
+
+.email-logged:hover{
+  overflow: visible;
+  cursor:pointer;
+}
+
+.boxe{
+  position: fixed;
+  display: flex;
+  outline: red solid 1px;
+  height: auto;
+  top: 87vh;
+  width: 83vw;
+  align-items: center;
 }

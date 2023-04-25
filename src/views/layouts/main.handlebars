@@ -10,6 +10,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link 
+      rel="stylesheet"
+      src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.all.min.js" 
+    />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link href="https://fonts.cdnfonts.com/css/capriola-buisiness" rel="stylesheet">          
+    <link href="https://fonts.cdnfonts.com/css/dec-terminal-modern" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/tt-marxiana-trial" rel="stylesheet">         
+    <link href="https://fonts.cdnfonts.com/css/g-glegar" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/sinami" rel="stylesheet" />
     <link href="https://fonts.cdnfonts.com/css/love-you" rel="stylesheet" />
     <link href="https://fonts.cdnfonts.com/css/thirty-seven" rel="stylesheet" />
@@ -19,25 +28,27 @@
       crossorigin="anonymous"
     ></script>
     <title>PRACTICA-INTEGRADORA</title>
-    <div class="menu row">
-      <div class="menu-tittle"><H2 class="tittle-index">Primera Práctica
+    <div class="head row"> <!--bloque de encabezado-->
+      <div class="head__container"><H2 class="head__container-h2">Primera Práctica
           Integradora</H2>
       </div>
-    </div>
+    </div><!--fin bloque de encabezado-->
   </head>
   <body>
     <header>
-      <nav class="nav">
-        <div class="row">        
-        <div class="col s6"></div>
-        <div class="menu-nav col s1"><a href="../home" type="button"><i class="fas fa-arrows-to-dot"></i><b> Static</b></a></div>
-        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="fas fa-arrows-spin"></i><b> Dinamic</b></a></div>
-        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="fa light fa-utensils"></i><b> Products</b></a></div>
-        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="fa light fa-cart-shopping"></i><b> Carts</b></a></div>
-        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="far fa-comments"></i><b> Messages</b></a></div>
-        <div class="menu-nav col s1"><a href="../realtimeproducts" type="button"><i class="far fa-face-smile"></i><b> Perfil</b></a></div>
-        <div class="barra row"><button type="button" id="barra-menu"><i class="fas fa-light fa-right-from-bracket"></i></button>
-        <div id="container-fluid1">
+      <nav class="nav"> <!--bloque de navegacion-->
+        <div class="nav__container row"> <!--bloque de navegacion__container-->
+        <div class="nav__container--blank col s1"></div>         
+        <div class="nav__container-email-logged col s4"></div>
+        <div class="nav__container--blank col s1"></div>  
+        <div class="nav__container-ref col s1"><a href="../home" type="button"><i class="fas fa-arrows-to-dot"></i><b> Static</b></a></div>
+        <div class="nav__container-ref col s1"><a href="../realtimeproducts" type="button"><i class="fas fa-arrows-spin"></i><b> Dinamic</b></a></div>
+        <div class="nav__container-ref col s1"><a href="../realtimeproducts" type="button"><i class="fa light fa-utensils"></i><b> Products</b></a></div>
+        <div class="nav__container-ref col s1"><a href="../realtimeproducts" type="button"><i class="fa light fa-cart-shopping"></i><b> Carts</b></a></div>
+        <div class="nav__container-ref col s1"><a href="../chat" type="button"><i class="far fa-comments"></i><b> Messages</b></a></div>
+        <div class="nav__container-ref col s1"><a href="../realtimeproducts" type="button"><i class="far fa-face-smile"></i><b> Perfil</b></a></div>
+        <div class="nav__container-bar row"><button type="button" class="nav__container-bar-dropdown"><i class="fas fa-light fa-right-from-bracket"></i></button><!--bloque de navegacion__container-bar-->
+        <div class="nav__container__bar-menu"> <!--bloque de navegacion__container-bar-menu-->
           <div class="logo-box">
             <img
               class="logo-img"
@@ -65,7 +76,7 @@
                 <a href="../realtimeproducts" type="button" class=" option-btn"><i class="fa light fa-cart-shopping"></i><b> Carts</b></a>
               </li>
               <li class="nav__li">
-                <a href="../realtimeproducts" type="button" class=" option-btn"><i class="far fa-comments"></i><b> Messages</b></a>
+                <a href="../chat" type="button" class=" option-btn"><i class="far fa-comments"></i><b> Messages</b></a>
               </li>
               <li class="nav__li">
                 <a href="../realtimeproducts" type="button" class=" option-btn"><i class="far fa-face-smile"></i><b> Login</b></a>
@@ -74,11 +85,11 @@
           </div>
         </div>
         </div>
-      </nav>
+      </nav><!--fin bloque de navegacion-->
     </header>
-    <div class="main row">
+    <div class="main row"> <!--bloque de cuerpo-->
       {{{body}}}
-    </div>
+    </div><!--fin bloque de navegacion-->
   </body>
   <footer><b>CODERHOUSE: Jorge Carlos Gayoso Ugas.</b></footer>
 </html>

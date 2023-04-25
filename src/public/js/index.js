@@ -1,13 +1,13 @@
 const dashboard= document.querySelector(".dash-btn");
-const contain1= document.querySelector("#container-fluid1");
-const menu= document.querySelector("#barra-menu");
+const navMenu= document.querySelector(".nav__container__bar-menu");
+const barMenu= document.querySelector(".nav__container-bar-dropdown");
 const header = document.querySelector("header");
 const route=document.querySelector(".route");
 const bot=document.querySelector(".option-box ul");
 
-menu.onclick = () => {
-    console.log(contain1.className);
-    contain1.className=="col s12 m6 l4 hide"? contain1.classList.remove("hide"):contain1.classList.add("hide");
+barMenu.onclick = () => {
+    console.log(navMenu.className);
+    navMenu.className=="nav__container__bar-menu keep"? navMenu.classList.remove("keep"):navMenu.classList.add("keep");
 }
 
 route.onclick = () => {
@@ -16,12 +16,12 @@ route.onclick = () => {
 }
 
 dashboard.onclick = () => {
-    console.log(contain1.className);
-    contain1.className=="col s12 m6 l4 hide"? contain1.classList.remove("hide"):contain1.classList.add("hide");
+    console.log(navMenu.className);
+    navMenu.className=="nav__container__bar-menu keep"? navMenu.classList.remove("keep"):navMenu.classList.add("keep");
   };
   
 if (window.location.pathname=="/") {
-    header.classList.add("hide");
+    header.classList.add("hidden");
 }
 
 

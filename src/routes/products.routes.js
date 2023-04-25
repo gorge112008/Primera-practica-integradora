@@ -59,8 +59,8 @@ routerProducts.post("/products", async (req, res) => {
       res.status(500).json({error: err});
     }
   });
-  routerProducts.get("*", function (req, res) {
+  /*routerProducts.get("*", function (req, res) {
     res.status(404).send("The route is incorrect");
-  });
+  });*/
 
   export default routerProducts;

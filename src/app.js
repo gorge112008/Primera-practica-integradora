@@ -7,11 +7,12 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import routerProducts from "./routes/products.routes.js";
 import routerCarts from "./routes/carts.routes.js";
-import routerMessages from "./routes/messages.routes.js";
+import routerMessage from "./routes/chat.routes.js";
 import routerUser from "./routes/users.routes.js";
 import Handlebars from "handlebars";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { ProductFM } from "./dao/classes/DBmanager.js";
+import { MessageFM } from "./dao/classes/DBmanager.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
@@ -29,7 +30,7 @@ const socketServer = new Server(httpServer);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", routerCarts, routerProducts, routerMessages, routerUser);
+app.use("/api", routerCarts, routerProducts, routerMessage, routerUser);
 
 app.engine(
   "handlebars",
@@ -45,6 +46,19 @@ app.get("/", (req, res) => {
   res.render("index", {});
 });
 
+let response;
+let Messages=[];
+
+async function initChat(data) {
+  try {
+    await MessageFM.addMessage(data);
+    Messages.length==0?Messages=await MessageFM.getMessages():Messages.push(data);
+    return Messages;
+  } catch (error) {
+    return error;
+  }
+}
+
 async function initProducts(id) {
   if (id) {
     let res = await ProductFM.getProductId(id);
@@ -54,8 +68,6 @@ async function initProducts(id) {
     return res;
   }
 }
-
-let response;
 
 app.get("/home", async (req, res) => {
   response = await initProducts();
@@ -71,6 +83,11 @@ app.get("/realtimeproducts/:pid", async (req, res) => {
   let pid = req.params.pid;
   response = await initProducts(pid);
   res.render("realtimeproducts", { response });
+});
+
+app.get("/chat", async (req, res) => {
+  response = "Bienvenido a la seccion de mensajes: ";
+  res.render("chat", { response });
 });
 
 const environment = async () => {
@@ -131,5 +148,18 @@ socketServer.on("connection", async (socket) => {
   socket.on("finExo", async (msj) => {
     socket.broadcast.emit("finValidate", msj);
     socket.emit("finValidate", msj);
+  });
+
+  socket.on("new-user", (data) => {
+    socket.user = data.user;
+    socket.id = data.id;
+    socketServer.emit("new-user-connected", {
+      user: socket.user,
+      id: socket.id,
+    });
+  });
+  socket.on("message",async (data) => {
+    await initChat(data);
+    socketServer.emit("messageLogs", Messages);
   });
 });

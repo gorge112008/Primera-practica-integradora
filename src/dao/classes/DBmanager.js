@@ -1,5 +1,7 @@
 import { productsModel } from "../models/products.model.js";
 import { cartsModel } from "../models/carts.model.js";
+import { messagesModel } from "../models/messages.model.js";
+import { userModel } from "../models/users.model.js";
 
 class ProductFileManager {
   async getProducts() {
@@ -89,5 +91,95 @@ class CartFileManager {
   }
 }
 
+class MessageFileManager {
+  async getMessages() {
+    try {
+      const messages = messagesModel.find();
+      return messages;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async getMessageId(id) {
+    try {
+      const message = messagesModel.find({ _id: id });
+      return message;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async addMessage(newMessage) {
+    try {
+      const message = messagesModel.create(newMessage);
+      return message;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async updateMessage(id, body) {
+    try {
+      const message= await messagesModel.updateOne({ _id: id }, body);
+      return message;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async deleteMessage(id) {
+    try {
+      await messagesModel.findByIdAndDelete(id);
+      return;
+    } catch (err) {
+      throw err;
+    }
+  }
+}
+
+class UserFileManager {
+  async getUsers() {
+    try {
+      const Users = userModel.find();
+      return Users;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async getUserId(id) {
+    try {
+      const User = userModel.find({ _id: id });
+      return User;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async addUser(newUser) {
+    try {
+      const User = userModel.create(newUser);
+      return User;
+    } catch (err) {
+      throw err;
+    }
+  }
+  async updateUser(id, body) {
+    try {
+      const User= await userModel.updateOne({ _id: id }, body);
+      return User;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async deleteUser(id) {
+    try {
+      await userModel.findByIdAndDelete(id);
+      return;
+    } catch (err) {
+      throw err;
+    }
+  }
+}
+
 export const ProductFM = new ProductFileManager();
 export const CartFM = new CartFileManager();
+export const MessageFM = new MessageFileManager();
+export const UserFM = new UserFileManager();

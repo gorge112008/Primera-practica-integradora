@@ -7,12 +7,12 @@ let btnsDelete;
 let opc = "update";
 let resExo=[];
 
-const labelContain = document.querySelectorAll(".input-field label");
-const h3Contain = document.querySelector("#container h3");
-const form = document.querySelector("form");
-const fluid2 = document.querySelector("#container-fluid2");
-const cancelar = document.querySelector("#btnCancel");
-const validateProducts = document.querySelector("#validate");
+const labelContain = document.querySelectorAll(".input-field label"); //Realtime Products
+const h3Contain = document.querySelector("#container h3"); //Realtime Products
+const form = document.querySelector("form");//Realtime Products
+const fluid2 = document.querySelector("#container-fluid2");//Realtime Products
+const cancelar = document.querySelector("#btnCancel");//Realtime Products
+const validateProducts = document.querySelector("#validate");//Realtime Products
 
 const inputTittle = document.querySelector("#tittle"),
   inputDescription = document.querySelector("#description"),
@@ -20,8 +20,8 @@ const inputTittle = document.querySelector("#tittle"),
   inputPrice = document.querySelector("#price"),
   inputStock = document.querySelector("#stock"),
   inputThumbnail = document.querySelector("#thumbnail"),
-  contain = document.querySelector("#dinamic-contain");
-btn_return = document.querySelector("#btn-return");
+  contain = document.querySelector("#dinamic-contain");//Realtime Products
+btn_return = document.querySelector("#btn-return");//Realtime Products - home
 
 class NewProduct {
   constructor() {
