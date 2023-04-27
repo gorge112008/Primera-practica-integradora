@@ -28,10 +28,13 @@ class ProductFileManager {
       throw err;
     }
   }
-    async updateProduct(id, body) {
+  async updateProduct(id, body) {
     try {
-      const product= await productsModel.findOneAndUpdate({ _id: id }, body,{new:true,upsert:true});
-      return product;   
+      const product = await productsModel.findOneAndUpdate({ _id: id }, body, {
+        new: true,
+        upsert: true,
+      });
+      return product;
     } catch (err) {
       throw err;
     }
@@ -74,7 +77,7 @@ class CartFileManager {
   }
   async updateCart(id, body) {
     try {
-      const cart= await cartsModel.updateOne({ _id: id }, body);
+      const cart = await cartsModel.updateOne({ _id: id }, body);
       return cart;
     } catch (err) {
       throw err;
@@ -118,7 +121,7 @@ class MessageFileManager {
   }
   async updateMessage(id, body) {
     try {
-      const message= await messagesModel.updateOne({ _id: id }, body);
+      const message = await messagesModel.updateOne({ _id: id }, body);
       return message;
     } catch (err) {
       throw err;
@@ -162,7 +165,7 @@ class UserFileManager {
   }
   async updateUser(id, body) {
     try {
-      const User= await userModel.updateOne({ _id: id }, body);
+      const User = await userModel.updateOne({ _id: id }, body);
       return User;
     } catch (err) {
       throw err;

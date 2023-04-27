@@ -47,12 +47,14 @@ app.get("/", (req, res) => {
 });
 
 let response;
-let Messages=[];
+let Messages = [];
 
 async function initChat(data) {
   try {
     await MessageFM.addMessage(data);
-    Messages.length==0?Messages=await MessageFM.getMessages():Messages.push(data);
+    Messages.length == 0
+      ? (Messages = await MessageFM.getMessages())
+      : Messages.push(data);
     return Messages;
   } catch (error) {
     return error;
@@ -158,7 +160,7 @@ socketServer.on("connection", async (socket) => {
       id: socket.id,
     });
   });
-  socket.on("message",async (data) => {
+  socket.on("message", async (data) => {
     await initChat(data);
     socketServer.emit("messageLogs", Messages);
   });

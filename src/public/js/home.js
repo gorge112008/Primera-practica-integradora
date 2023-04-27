@@ -5,14 +5,15 @@ let protocol = window.location.protocol;
 let Url = protocol + "//" + URLdomain + "/api/products/";
 let btnsDelete;
 let opc = "update";
-let resExo=[];
+let resExo = [];
 
-const labelContain = document.querySelectorAll(".input-field label"); //Realtime Products
-const h3Contain = document.querySelector("#container h3"); //Realtime Products
-const form = document.querySelector("form");//Realtime Products
-const fluid2 = document.querySelector("#container-fluid2");//Realtime Products
-const cancelar = document.querySelector("#btnCancel");//Realtime Products
-const validateProducts = document.querySelector("#validate");//Realtime Products
+const containDinamic = document.querySelector(".main__container__dinamic"),
+  tittleDinamic = document.querySelector(".dinamic__tittle--h3"),
+  form = document.querySelector("form"),
+  formInput = document.querySelectorAll(".input-field label"),
+  formCancel = document.querySelector(".form--btnCancel");
+
+const validateProducts = document.querySelector("#validate");
 
 const inputTittle = document.querySelector("#tittle"),
   inputDescription = document.querySelector("#description"),
@@ -20,8 +21,8 @@ const inputTittle = document.querySelector("#tittle"),
   inputPrice = document.querySelector("#price"),
   inputStock = document.querySelector("#stock"),
   inputThumbnail = document.querySelector("#thumbnail"),
-  contain = document.querySelector("#dinamic-contain");//Realtime Products
-btn_return = document.querySelector("#btn-return");//Realtime Products - home
+  contain = document.querySelector(".container__grid"),
+  btn_return = document.querySelector("#btn-return");
 
 class NewProduct {
   constructor() {
@@ -50,26 +51,36 @@ async function crearHtml() {
   let html;
   for (const product of storeProducts) {
     if (product.status == false && opc == "update") continue;
-    html = `<div class="card">
-<div class="card-image">
- <a class=${opc} href="/realtimeproducts/${product._id}"></a>
- <img class="responsive-img" src=${product.thumbnail} />
- <span class="card-title">${product.tittle}</span>
-</div>
-<div class="card-content">
- <b class="card-description">
-   ${product.description}
- </b>
- <p>$${product.price}</p>
- <b>Code: <b class="code">${product.code}</b></b>
-</div>
-<div class="card-action">
- <input type= "button" id=${product._id} class="btn" value="Delete" >
-</div>
-</div>`;
+    html = `<div class="container__grid__card"><div class="card">
+      <div class="card-header"><h5 class="card-title">${product.tittle}</h5></div>
+      <img class="card-img-top" src=${product.thumbnail} alt="Card image cap" />
+      <div class="card-img-overlay">
+        <button
+          type="button"
+          class="btn btn-outline-danger btn-sm card__btnDelete"
+          id=${product._id}
+        >
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-warning btn-sm btnUpdate"
+          id="btnUpdate"
+        >
+          <a class="fas fa-edit" href="/realtimeproducts/${product._id}"></a>
+        </button>
+      </div>
+      <div class="card-body">
+        <b class="card-text--description">${product.description}</b>
+        <p class="card-text--price">S/.${product.price}</p>
+        <b class="card-text--code">Code: <b class="code">${product.code}</b></b>
+      </div>
+    </div>
+  </div>`;
     contain.innerHTML += html;
   }
-  btnsDelete = document.querySelectorAll(".btn");
+  cardUpdate = await document.querySelector(".card__btnUpdate");
+  btnsDelete = document.querySelectorAll(".card__btnDelete");
   return btnsDelete;
 }
 
@@ -85,15 +96,15 @@ function validarUrl() {
 async function selectAction() {
   if (storeProducts.length == 1) {
     //SE ASIGNA LA ACCION DE UPDATE
-    fluid2.classList.add("updating-product");
-    h3Contain.innerHTML = "Update Product";
+    containDinamic.classList.add("updating-product");
+    tittleDinamic.innerHTML = "Update Product";
     inputTittle.value = storeProducts[0].tittle;
     inputDescription.value = storeProducts[0].description;
     inputCode.value = storeProducts[0].code;
     inputPrice.value = storeProducts[0].price;
     inputStock.value = storeProducts[0].stock;
     inputThumbnail.value = storeProducts[0].thumbnail;
-    labelContain.forEach((label) => {
+    formInput.forEach((label) => {
       label.focus();
     });
     if (opc != "reset") {
@@ -107,8 +118,8 @@ async function selectAction() {
       selectDelete();
     }
   } else {
-    fluid2.classList.remove("updating-product");
-    h3Contain.innerHTML = "Ingresa un producto";
+    containDinamic.classList.remove("updating-product");
+    tittleDinamic.innerHTML = "Ingresa un producto";
     opc = "update";
   }
 }
@@ -319,12 +330,12 @@ socket.on("updatingProduct", async (msj) => {
   if (storeProducts.length != 1) {
     storeProducts = await getData();
     selectDelete();
-  }else{
+  } else {
     validateProducts.classList.add("hidden");
   }
 });
 
-cancelar.onclick = () => {
+formCancel.onclick = () => {
   if (storeProducts.length == 1) {
     updateProducts(Url, storeProducts[0]._id, { status: true });
     socket.emit("updateproduct", "Productos Actualizados");
@@ -358,8 +369,10 @@ validateProducts.onclick = async () => {
     const validProducts = await validarStatus(resExo);
     //console.log("Productos Validados Correctamente" + validProducts);
     //console.log("Vaciando arreglo de Exoneraciones");
-    resExo.length==0?socket.emit("finExo", "Exoneración Finalizada"):validateProducts.classList.remove("hidden");
-    resExo=[];
+    resExo.length == 0
+      ? socket.emit("finExo", "Exoneración Finalizada")
+      : validateProducts.classList.remove("hidden");
+    resExo = [];
     socket.emit("validateStatus", validProducts);
   } catch {
     console.log("Error al Validando Productos");
@@ -382,7 +395,7 @@ socket.on("idExonerar", async (id) => {
 socket.on("actualizar", async (products) => {
   console.log("Validacion Exitosa");
   if (storeProducts.length != 1) {
-    storeProducts=products;
+    storeProducts = products;
     selectDelete();
   }
 });

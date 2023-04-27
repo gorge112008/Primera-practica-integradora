@@ -1,28 +1,30 @@
-<div class="col s1 estilo"></div>
-<div id="container-fluid2" class="col s10">
-  <div class="static-tittle row"><h4>*Productos Disponibles:</h4></div>
-  <div class="dinamic-row row">
-    <div class="col m12" id="static-contain">
+<div class="main__container--side col s1"></div>
+<div class="main__container__dinamic col s10">
+  <div class="static__tittle row"><h4>*Productos Disponibles:</h4></div>
+  <div class="static__container row">
+    <div class="container__grid col m12">
       {{#each response}}
-        <div class="card">
-          <div class="card-image">
-            <img class="responsive-img" src={{thumbnail}} />
-            <span class="card-title">{{tittle}}</span>
-          </div>
-          <div class="card-content-static">
-            <b class="card-description">
-              {{description}}
-            </b>
-            <p>S/.{{price}}</p>
-            <b>Code: <b class="code">{{code}}</b></b>
+        <div class="container__grid__card">
+          <div class="card">
+            <div class="card-header"><h5
+                class="card-title"
+              >{{tittle}}</h5></div>
+            <img class="card-img-top" src={{thumbnail}} alt="Card image cap" />
+            <div class="card-body">
+              <b class="card-text--description">{{description}}</b>
+              <p class="card-text--price">S/.{{price}}</p>
+              <b class="card-text--code">Code: <b class="code">{{code}}</b></b>
+            </div>
           </div>
         </div>
       {{/each}}
     </div>
   </div>
 </div>
-<div class="col s1 estilo"></div>
-<a href="/" type="button" id="return"><i class="fas fa-light fa-reply-all"></i>RETURN</a>
+<div class="main__container--side col s1"></div>
+<div id="return"><a href="/" type="button"><i
+      class="fas fa-light fa-reply-all"
+    ></i><b>RETURN</b></a></div>
 <script
   src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.all.min.js"
 ></script>

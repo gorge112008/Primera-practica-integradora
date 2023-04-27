@@ -1,27 +1,25 @@
-const dashboard= document.querySelector(".dash-btn");
-const navMenu= document.querySelector(".nav__container__bar-menu");
-const barMenu= document.querySelector(".nav__container-bar-dropdown");
-const header = document.querySelector("header");
-const route=document.querySelector(".route");
-const bot=document.querySelector(".option-box ul");
+const nav = document.querySelector(".nav"),
+asideDropdown= document.querySelector(".aside__dropdown--contain"),
+asideMenu= document.querySelector(".aside__menu"),
+buttonKHMenu= document.querySelector(".aside__menu--keep-hide button"),
+buttonOptionsMenu=document.querySelector(".aside__menu--options button"),
+menuOption=document.querySelector(".aside__menu--options-ul");
 
-barMenu.onclick = () => {
-    console.log(navMenu.className);
-    navMenu.className=="nav__container__bar-menu keep"? navMenu.classList.remove("keep"):navMenu.classList.add("keep");
+asideDropdown.onclick = () => {
+    asideMenu.className=="aside__menu keep"? asideMenu.classList.remove("keep"):asideMenu.classList.add("keep");
+};
+
+buttonKHMenu.onclick = () => {
+    asideMenu.className=="aside__menu keep"? asideMenu.classList.remove("keep"):asideMenu.classList.add("keep");
+};
+
+buttonOptionsMenu.onclick = () => {
+    menuOption.className=="aside__menu--options-ul hidden"? menuOption.classList.remove("hidden"):menuOption.classList.add("hidden");
 }
 
-route.onclick = () => {
-    console.log(bot.className);
-    bot.className=="nav__ul hidden"? bot.classList.remove("hidden"):bot.classList.add("hidden");
-}
-
-dashboard.onclick = () => {
-    console.log(navMenu.className);
-    navMenu.className=="nav__container__bar-menu keep"? navMenu.classList.remove("keep"):navMenu.classList.add("keep");
-  };
-  
 if (window.location.pathname=="/") {
-    header.classList.add("hidden");
+    nav.classList.add("hidden");
+    asideDropdown.classList.add("hidden");
 }
 
 

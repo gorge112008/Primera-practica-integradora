@@ -3,23 +3,25 @@ let chatBox = document.getElementById("chatBox");
 let URLdomain = window.location.host;
 let protocol = window.location.protocol;
 let Url = protocol + "//" + URLdomain + "/api/messages/";
-let confirm='active';
+let confirm = "active";
 let user;
-const titi= document.querySelector('.email-logged');
+const titi = document.querySelector(".nav__container--email-logged");
 
 Swal.fire({
-  title: '<b class="chat-login-tittle">Bienvenido al Chat</b>',
-  html: '<u class="chat-login-text">Ingresa tu correo</u>',
-  input: "text",
-  confirmButtonText: '<b class="chat-login-confirm">Confirmar</b>',
+  title: '<b class="chat__login--tittle">Bienvenido al Chat</b>',
+  html: '<u class="chat__login--text">Ingresa tu correo</u>',
+  input: "email",
+  confirmButtonText: '<b class="chat__login--confirm">Confirmar</b>',
   showLoaderOnConfirm: true,
   background:
     '#fff url("https://img.freepik.com/vector-gratis/fondo-degradado-cielo-pastel_23-2148917404.jpg?w=2000")',
   footer: '<a href="">Did you forget your password?</a>',
-  inputPlaceholder: 'Ingresar aqui...',
-  preConfirm: () => {confirm='inactive'},
+  inputPlaceholder: "Ingresar aqui...",
+  preConfirm: () => {
+    confirm = "inactive";
+  },
   allowOutsideClick: false,
-  backdrop:'rgba(0,0,123,0.4)',
+  backdrop: "rgba(0,0,123,0.4)",
 })
   .then((result) => {
     if (result.isDismissed) {
@@ -27,7 +29,7 @@ Swal.fire({
     } else {
       if (result.value) {
         user = result.value;
-        titi.innerHTML=`<b>${user}<b>`;
+        titi.innerHTML = `<b>${user}<b>`;
         socket.emit("new-user", { user: user, id: socket.id });
       }
     }
@@ -49,13 +51,13 @@ chatBox.addEventListener("keyup", (e) => {
 });
 
 socket.on("messageLogs", (data) => {
-  let log = document.getElementById("messageLogs");
+  let log = document.querySelector(".chat__container__dinamic");
   let message = "";
   data.forEach((elem) => {
     message += `
-      <div class="chat-message">
-      <div class="message-bubble">
-        <div class="message-sender">${elem.user}</div>
+      <div class="chat__message">
+      <div class="chat__message--bubble">
+        <div class="chat__message--sender">${elem.user}</div>
         <p>${elem.message}</p>
         </div>
       </div>
@@ -66,20 +68,20 @@ socket.on("messageLogs", (data) => {
 });
 
 socket.on("new-user-connected", (data) => {
-  if (confirm!='active') {
-  if (data.id !== socket.id)
-    Swal.fire({
-      html: `<b class="chat-login-notification">${data.user} se ha conectado al chat<b>`,
-      toast: true,
-      position: "top-end",
-      timer:2000,
-      background: "linear-gradient(to right, #00b09b, #96c93d)",
-    });
+  if (confirm != "active") {
+    if (data.id !== socket.id)
+      Swal.fire({
+        html: `<b class="chat__login--notification">${data.user} se ha conectado al chat<b>`,
+        toast: true,
+        position: "top-end",
+        timer: 2000,
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+      });
   }
 });
 
 function firstLoad(url) {
-  let log = document.getElementById("messageLogs");
+  let log = document.querySelector(".chat__container__dinamic");
   fetch(url, {
     method: "GET",
     "Access-Control-Allow-Origin": "*",
@@ -93,9 +95,9 @@ function firstLoad(url) {
       let message = "";
       data.forEach((elem) => {
         message += `
-      <div class="chat-message">
-        <div class="message-bubble">
-          <div class="message-sender">${elem.user}</div>
+      <div class="chat__message">
+        <div class="chat__message--bubble">
+          <div class="chat__message--sender">${elem.user}</div>
           <p>${elem.message}</p>
         </div>
       </div>
