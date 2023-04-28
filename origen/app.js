@@ -64,9 +64,6 @@ async function initChat(data) {
 async function initProducts(id) {
   if (id) {
     let res = await ProductFM.getProductId(id);
-    let res2= await fetch('http://example.com/movies.json')
-    .then(response => response.json())
-    .then(data => console.log(data));
     return res;
   } else {
     let res = await ProductFM.getProducts();
