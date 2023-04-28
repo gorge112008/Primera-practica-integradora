@@ -1,11 +1,14 @@
 const socket = io();
-let chatBox = document.getElementById("chatBox");
 let URLdomain = window.location.host;
 let protocol = window.location.protocol;
 let Url = protocol + "//" + URLdomain + "/api/messages/";
 let confirm = "active";
 let user;
-const titi = document.querySelector(".nav__container--email-logged");
+
+const chatBox = document.getElementById("chatBox"),
+      btnSend = document.getElementById("btnSend");
+
+const emailLogged = document.querySelector(".nav__container--email-logged");
 
 Swal.fire({
   title: '<b class="chat__login--tittle">Bienvenido al Chat</b>',
@@ -29,7 +32,7 @@ Swal.fire({
     } else {
       if (result.value) {
         user = result.value;
-        titi.innerHTML = `<b>${user}<b>`;
+        emailLogged.innerHTML = `<b>${user}<b>`;
         socket.emit("new-user", { user: user, id: socket.id });
       }
     }
@@ -48,6 +51,16 @@ chatBox.addEventListener("keyup", (e) => {
       chatBox.value = "";
     }
   }
+});
+
+btnSend.addEventListener("click", () => {
+    if (chatBox.value.trim().length > 0) {
+      socket.emit("message", {
+        user: user,
+        message: chatBox.value,
+      });
+      chatBox.value = "";
+    }
 });
 
 socket.on("messageLogs", (data) => {
@@ -104,6 +117,8 @@ function firstLoad(url) {
       `;
       });
       log.innerHTML = message;
+      const bubbleMessage = document.querySelectorAll(".chat__message--bubble");
+      bubbleMessage[bubbleMessage.length - 1].scrollIntoView();
     });
 }
 

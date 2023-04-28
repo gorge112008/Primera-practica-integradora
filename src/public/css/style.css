@@ -19,6 +19,80 @@
   display: none !important;
 }
 
+/*INDEX BLOCK*/
+.main__container__index {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: sticky;
+}
+
+.index__route--static a {
+  /*STATIC BUTTON*/
+  background-color: aquamarine;
+  color: black;
+  margin-top: 100px;
+  white-space: normal;
+  border: solid black 2px;
+  border-radius: 20px;
+  font-family: "Sinami", sans-serif;
+  font-size: 3.125rem;
+  padding: 15px;
+  padding-bottom: 5px;
+  transition: all 500ms ease;
+}
+
+.index__route--static a:hover {
+  color: rgb(195, 7, 195);
+  box-shadow: #9966cc 0px 0px 20px 0px;
+  cursor: pointer;
+}
+
+.index__route--dinamic a {
+  /*DINAMIC BUTTON*/
+  background-color: rgb(96, 104, 255);
+  color: black;
+  margin-top: 50px;
+  white-space: normal;
+  border: solid black 2px;
+  border-radius: 20px;
+  font-family: "Sinami", sans-serif;
+  font-size: 3.125rem;
+  padding: 15px;
+  padding-bottom: 5px;
+  transition: all 500ms ease;
+}
+
+.index__route--dinamic a:hover {
+  border: solid black 2px;
+  color: rgb(255, 196, 0);
+  box-shadow: #9966cc 0px 0px 20px 0px;
+  cursor: pointer;
+}
+
+.index__route--chat a {
+  /*CHAT BUTTON*/
+  background-color: pink;
+  color: black;
+  margin-top: 50px;
+  white-space: normal;
+  border: solid black 2px;
+  border-radius: 20px;
+  font-family: "Sinami", sans-serif;
+  font-size: 3.125rem;
+  padding: 15px;
+  padding-bottom: 5px;
+  transition: all 500ms ease;
+}
+
+.index__route--chat a:hover {
+  border: solid black 2px;
+  color: blue;
+  box-shadow: #9966cc 0px 0px 20px 0px;
+  cursor: pointer;
+}
+
 /*MAIN BLOCK*/
 .container__grid {
   display: grid;
@@ -29,6 +103,9 @@
   grid-auto-rows: 1fr;
   grid-auto-columns: 1fr;
   grid-gap: 10px;
+  height: auto;
+  margin-top: 1vh;
+  margin-bottom: 3vh;
 }
 
 .keep {
@@ -315,83 +392,8 @@
   z-index: 1;
 }
 
-/*INDEX BLOCK*/
-.main__container__index {
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: sticky;
-}
-
-.index__route--static a {
-  /*STATIC BUTTON*/
-  background-color: aquamarine;
-  color: black;
-  margin-top: 100px;
-  white-space: normal;
-  border: solid black 2px;
-  border-radius: 20px;
-  font-family: "Sinami", sans-serif;
-  font-size: 3.125rem;
-  padding: 15px;
-  padding-bottom: 5px;
-  transition: all 500ms ease;
-}
-
-.index__route--static a:hover {
-  color: rgb(195, 7, 195);
-  box-shadow: #9966cc 0px 0px 20px 0px;
-  cursor: pointer;
-}
-
-.index__route--dinamic a {
-  /*DINAMIC BUTTON*/
-  background-color: rgb(96, 104, 255);
-  color: black;
-  margin-top: 50px;
-  white-space: normal;
-  border: solid black 2px;
-  border-radius: 20px;
-  font-family: "Sinami", sans-serif;
-  font-size: 3.125rem;
-  padding: 15px;
-  padding-bottom: 5px;
-  transition: all 500ms ease;
-}
-
-.index__route--dinamic a:hover {
-  border: solid black 2px;
-  color: rgb(255, 196, 0);
-  box-shadow: #9966cc 0px 0px 20px 0px;
-  cursor: pointer;
-}
-
-.index__route--chat a {
-  /*CHAT BUTTON*/
-  background-color: pink;
-  color: black;
-  margin-top: 80px;
-  white-space: normal;
-  border: solid black 2px;
-  border-radius: 20px;
-  font-family: "Sinami", sans-serif;
-  font-size: 3.125rem;
-  padding: 15px;
-  padding-bottom: 5px;
-  transition: all 500ms ease;
-}
-
-.index__route--chat:hover {
-  border: solid black 2px;
-  color: blue;
-  box-shadow: #9966cc 0px 0px 20px 0px;
-  cursor: pointer;
-}
-
 /*DINAMIC BLOCK*/
 .dinamic__container {
-  border: solid black 1px;
   position: sticky;
   top: 6vh;
   display: block;
@@ -409,7 +411,7 @@
   margin: 0;
   top: 0;
   display: block;
-  margin-left: 2px;
+  margin-left: 10px;
   font-size: 3.5rem;
   width: 100%;
   font-family: "Sinami", sans-serif;
@@ -483,29 +485,37 @@
 /*GRID BLOCK*/
 .container__grid__card {
   border: solid 1px black;
-  height: 100vh;
+  height: 45vh;
   margin: 0;
+  z-index: 1;
+  background-color: rgb(255, 255, 255);
+}
+.container__grid__card:hover{
+  background-color: rgb(230, 230, 230);
+}
+.container__empty__card {
+  position: absolute;
+  top: 27vh;
+  width:38vw;
+  height: 0;
+  margin: 0;
+  z-index: 2;
+  background-color: rgb(255, 255, 255);
 }
 
-.card {
+.container__grid__card .card {
   margin: 0;
   height: 20vh;
 }
 
-.card-img-top {
-  object-fit: cover;
-  border: solid black 1px;
-  height: 50%;
-  width: 50%;
-}
-
-.container__grid__card {
-  border: solid 1px black;
-  height: 45vh;
+.container__empty__card .card {
   margin: 0;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.card-title {
+.card-title--filled {
   margin: 0;
   opacity: 0.8;
   color: black;
@@ -520,20 +530,34 @@
   transition: all 500ms ease;
 }
 
-.card-title:hover {
+.card-title--filled:hover {
   cursor: pointer;
   width: 100%;
   height: auto;
   line-height: auto;
   white-space: normal;
   word-wrap: break-word;
+  box-shadow: #2cff37 0px 0px 15px 0px;
 }
 
-.card-img-top {
+.card-img-top--filled {
   object-fit: cover;
-  border: solid black 1px;
+  border-bottom: solid black 3px;
+  border-bottom-left-radius:10%;
+  border-bottom-right-radius:10%;
   height: 100%;
   width: 100%;
+}
+
+.card-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-item i{
+  font-size: 15vw;
 }
 
 .card-body {
@@ -553,14 +577,15 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: center;
-  padding: 5px;
+  position: relative;
+  top: 3vh;
 }
 
 .card-text--description:hover,
 .card-text--description:active {
   position: sticky;
   cursor: pointer;
-  color: rgb(55, 10, 206);
+  color: blue;
   font-size: 1.25rem;
   overflow: visible;
   text-overflow: "";
@@ -569,11 +594,35 @@
 }
 
 .card-text--price {
-  font-size: 1.125rem;
+  font-size: 1.3125rem;
+  margin-bottom: 2vh;
+  position: relative;
+  top: 6vh;
+  font-family: "TT Marxiana Trial", sans-serif;
+}
+
+.card-text--price:hover {
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .card-text--code {
-  font-size: 1.125rem;
+  display: block;
+  font-size: 1rem;
+  text-align: start;
+  margin-left: 5px;
+  color: #6a00ff;
+}
+
+.card-text--empty{
+  display: block;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-left: 5px;
+  color: #6a00ff;
+  position: relative;
+  top: 10%;
 }
 
 .card__btnDelete {
@@ -619,6 +668,31 @@
   color: green;
   padding: 8px 10px;
   box-shadow: green 0 1px 5px 0;
+}
+
+.btnAdd{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background-color: transparent;
+}
+
+.btnAdd a{
+  color: black;
+  font-size: 2rem;
+  width: 100%;
+  overflow: hidden;
+  height: 5vh;
+}
+
+.btnAdd i{
+  font-size: 1.25rem;
+}
+
+.btnAdd b{
+  font-size: 0.8125rem;
+  padding-left: 5px;
 }
 
 /*VALIDATE BLOCK*/
@@ -704,6 +778,12 @@
 }
 
 /*CHAT LOGIN BLOCK*/
+.chat{
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
 .chat__login--tittle {
   color: rgb(46, 12, 200);
   font-family: "g Glegar", sans-serif;
@@ -729,54 +809,68 @@
 }
 
 /*CHAT CONTAINER BLOCK*/
+.main__container__dinamic--chat {
+  height: auto;
+  position: sticky;
+  top: 6vh;
+}
+
 .chat__tittle {
   background-color: white;
   position: sticky;
-  top: 6vh;
+  top: 0;
   display: flex;
-  z-index: 1;
   justify-content: center;
+  z-index: 2;
+  margin: 0;
+  border-top: solid 1px black;
+  background-color: rgb(175, 255, 175);
 }
 
-.chat__tittle h4 {
-  text-align: center;
-  margin-top: 10px !important;
+.chat__tittle u {
+  margin: 0;
+  margin-top: 10px;
   position: relative;
   color: #9d00ff;
-  font-size: 6vw;
+  background-color: rgb(175, 255, 175);
+  font-size: 5vw;
   font-family: "Sinami", sans-serif;
+}
+
+.chat__container--response {
+  position: relative;
+  padding-left: 1vw;
+  background-color: rgb(175, 255, 175);
+  border-bottom: solid 1px black;
+  margin: 0;
 }
 
 .chat__container {
   display: flex;
   flex-direction: column;
   height: auto;
-  width: 100%;
-  padding-bottom: 10vh;
-}
-
-.chat__container--response {
-  padding: 17px;
+  margin: 0;
 }
 
 .chat__container__dinamic {
   position: relative;
-  outline: solid black 2px;
-  width: 100%;
-  height: auto;
+  width:  100%;
+  margin: 0;
+  height: 60vh;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 /*CHAT MESSAGE BLOCK*/
 .chat__message {
   display: flex;
-  margin: 10px 0;
+  margin: 10px;
 }
 
 .chat__message--bubble {
   display: flex;
   flex-direction: column;
   padding: 10px 15px;
-  margin-left: 10px;
   border-radius: 10px;
   background-color: #ffffff;
   border: solid 1px #ddd;
@@ -802,19 +896,20 @@
 
 /*CHAT INPUT BLOCK*/
 .chat__input {
-  position: fixed;
+  position: relative;
   display: flex;
-  outline: red solid 1px;
-  height: auto;
-  top: 87vh;
-  width: 83vw;
+  height: 10vh;
+  width: 100%;
   align-items: center;
+  z-index: 100;
+  margin: 0;
+  left: 10px;
 }
 
 .chat__input--chatBox {
+  width: 100%;
   background-color: white;
-  border-top: 1px solid #ddd;
-  padding: 0 20px;
+  border-radius: 60px;
 }
 
 .chat__input--chatBox input {
@@ -827,14 +922,17 @@
 }
 
 .chat__input--button {
-  background-color: greenyellow;
+  height: 50%;
+  display: flex;
 }
 
-.chat__input--button button {
-  flex: 1;
-  border: solid black 1px;
-  font-size: 1.125rem;
+#btnSend{
+  width: 100%;
+  font-size: 1.5rem;
+  border-radius: 60px;
+  background-color: rgb(82, 248, 82);
   cursor: pointer;
+  border: solid 2px black;
 }
 
 /*CSS DEVICES*/
@@ -842,6 +940,7 @@
 /*CSS DEVICE < 600px (37.5rem)(base 1rem=16px) (CEL)*/
 
 @media only screen and (max-width: 37.5rem) {
+
   /*DEVICE CEL MAIN BLOCK*/
   .container__grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -889,12 +988,17 @@
   }
 
   /*DEVICE CEL CHAT BLOCK*/
-  .chat__tittle {
-    top: 6vh;
-  }
-  .chat__tittle h4 {
+  .chat__tittle u {
     font-size: 5vh;
   }
+  .container__empty__card {
+    position: relative;
+    border: solid 1px black;
+    height: auto;
+    width: 77vw;
+    top: 6vh;
+  }
+
 }
 
 /*CSS DEVICE > 992px (62rem) (base 16px=1rem) (LAP)*/
@@ -935,12 +1039,15 @@
     width: 28vw;
   }
 
-  /*DEVICE LAP CHAT BLOCK*/
-  .chat__tittle {
-    top: 6vh;
+  /*DEVIDE LAP CARD BLOCK*/
+  .container__empty__card {
+    height: auto;
+    width: 53vw;
   }
-  .chat__tittle h4 {
-    font-size: 4vw;
+
+  /*DEVICE LAP CHAT BLOCK*/
+  .chat__tittle u {
+    font-size: 3.5vw;
   }
 
   /*DEVICE LAP RETURN BLOCK*/
@@ -957,6 +1064,8 @@
   #return b {
     bottom: 0.6vh;
   }
+
+  
 }
 
 /*FOOTER BLOCK*/

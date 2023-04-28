@@ -1,11 +1,12 @@
 const nav = document.querySelector(".nav"),
-asideDropdown= document.querySelector(".aside__dropdown--contain"),
+asideDropdown= document.querySelector(".aside__dropdown"),
+btnDropdown= document.querySelector(".aside__dropdown--contain button"),
 asideMenu= document.querySelector(".aside__menu"),
 buttonKHMenu= document.querySelector(".aside__menu--keep-hide button"),
 buttonOptionsMenu=document.querySelector(".aside__menu--options button"),
 menuOption=document.querySelector(".aside__menu--options-ul");
 
-asideDropdown.onclick = () => {
+btnDropdown.onclick = () => {
     asideMenu.className=="aside__menu keep"? asideMenu.classList.remove("keep"):asideMenu.classList.add("keep");
 };
 

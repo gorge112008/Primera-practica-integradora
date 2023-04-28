@@ -11,11 +11,9 @@ const containDinamic = document.querySelector(".main__container__dinamic"),
   tittleDinamic = document.querySelector(".dinamic__tittle--h3"),
   form = document.querySelector("form"),
   formInput = document.querySelectorAll(".input-field label"),
-  formCancel = document.querySelector(".form--btnCancel");
-
-const validateProducts = document.querySelector("#validate");
-
-const inputTittle = document.querySelector("#tittle"),
+  formCancel = document.querySelector(".form--btnCancel"),
+  validateProducts = document.querySelector("#validate"),
+  inputTittle = document.querySelector("#tittle"),
   inputDescription = document.querySelector("#description"),
   inputCode = document.querySelector("#code"),
   inputPrice = document.querySelector("#price"),
@@ -47,41 +45,82 @@ socket.on("products", async (getProducts) => {
 
 //funciones
 async function crearHtml() {
-  contain.innerHTML = "";
-  let html;
-  for (const product of storeProducts) {
-    if (product.status == false && opc == "update") continue;
-    html = `<div class="container__grid__card"><div class="card">
-      <div class="card-header"><h5 class="card-title">${product.tittle}</h5></div>
-      <img class="card-img-top" src=${product.thumbnail} alt="Card image cap" />
-      <div class="card-img-overlay">
-        <button
-          type="button"
-          class="btn btn-outline-danger btn-sm card__btnDelete"
-          id=${product._id}
-        >
-          <i class="fas fa-trash-alt"></i>
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-warning btn-sm btnUpdate"
-          id="btnUpdate"
-        >
-          <a class="fas fa-edit" href="/realtimeproducts/${product._id}"></a>
-        </button>
-      </div>
-      <div class="card-body">
-        <b class="card-text--description">${product.description}</b>
-        <p class="card-text--price">S/.${product.price}</p>
-        <b class="card-text--code">Code: <b class="code">${product.code}</b></b>
-      </div>
-    </div>
-  </div>`;
-    contain.innerHTML += html;
+  if (storeProducts.length == 0) {
+    contain.innerHTML = (
+      `<div class="container__empty__card">
+        <div class="card">
+          <div class="card-item">
+            {" "}
+            <i class="fa-regular fa-rectangle-xmark"></i>
+          </div>
+          <div class="card-body">
+            <b class="card-text--empty">No Products Found</b>
+            <p class="card-text--empty">You have not added any product</p>
+            <p class="card-text--empty">Add first product now</p>
+          </div>
+          <div class="card-footer">
+            <button
+              type="button"
+              class="btn btn-outline-warning btn-sm btnAdd"
+              id="btnAdd"
+            >
+              <a class="fas fa-edit" href="../realtimeproducts"></a>
+            </button>
+          </div>
+        </div>
+      </div>`
+    );
+  } else {
+    contain.innerHTML = "";
+    let html;
+    for (const product of storeProducts) {
+      if (product.status == false && opc == "update") continue;
+      html = `<div class="container__grid__card">
+          <div class="card">
+            <div class="card-header--filled">
+              <h5 class="card-title--filled">${product.tittle}</h5>
+            </div>
+            <img
+              class="card-img-top--filled"
+              src=${product.thumbnail}
+              alt="Card image cap"
+            />
+            <div class="card-img-overlay">
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm card__btnDelete"
+                id=${product._id}
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-warning btn-sm btnUpdate"
+                id="btnUpdate"
+              >
+                <a
+                  class="fas fa-edit"
+                  href="/realtimeproducts/${product._id}"
+                ></a>
+              </button>
+            </div>
+            <div class="card-body">
+              <b class="card-text--description">${product.description}</b>
+              <u class="card-text--price">S/.${product.price}</u>
+            </div>
+            <div class="card-footer">
+              <b class="card-text--code">
+                Code: <b class="code">${product.code}</b>
+              </b>
+            </div>
+          </div>
+        </div>`;
+      contain.innerHTML += html;
+    }
+    cardUpdate = await document.querySelector(".card__btnUpdate");
+    btnsDelete = document.querySelectorAll(".card__btnDelete");
+    return btnsDelete;
   }
-  cardUpdate = await document.querySelector(".card__btnUpdate");
-  btnsDelete = document.querySelectorAll(".card__btnDelete");
-  return btnsDelete;
 }
 
 function validarUrl() {

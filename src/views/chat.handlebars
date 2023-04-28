@@ -1,29 +1,25 @@
 <div class="main__container--side col s1"></div>
-<div class="main__container__dinamic col s10">
-  <div class="chat__tittle row"><h4>Chat Comunitario</h4></div>
-  <div class="row">
+<div class="main__container__dinamic--chat col s10">
+  <div class="chat__tittle row"><u>Chat Comunitario</u></div>
+  <div class="chat row">
     <div class="chat__container">
-      <u class="chat__container--response"><i>{{response}}</i></u>
+      <b class="chat__container--response"><i>{{response}}</i></b>
       <div class="chat__container__dinamic">
         <!-- Contain Dinamic -->
       </div>
     </div>
   </div>
   <div class="chat__input row">
-    <div class="col s10 m10 l10">
-      <div class="chat__input--chatBox">
-        <input
-          type="text"
-          placeholder="Escribe un mensaje..."
-          name="message"
-          id="chatBox"
-        />
-      </div>
+    <div class="chat__input--chatBox col s10">
+      <input
+        type="text"
+        placeholder="Escribe un mensaje..."
+        name="message"
+        id="chatBox"
+      />
     </div>
-    <div class="col s2 m2 l2">
-      <div class="chat__input--button">
-        <button>Enviar</button>
-      </div>
+    <div class="chat__input--button col s2">
+      <button id="btnSend" class="fa-solid fa-location-arrow"></button>
     </div>
   </div>
 </div>

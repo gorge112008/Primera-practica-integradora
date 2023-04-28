@@ -64,6 +64,9 @@ async function initChat(data) {
 async function initProducts(id) {
   if (id) {
     let res = await ProductFM.getProductId(id);
+    let res2= await fetch('http://example.com/movies.json')
+    .then(response => response.json())
+    .then(data => console.log(data));
     return res;
   } else {
     let res = await ProductFM.getProducts();
@@ -112,7 +115,7 @@ isValidStartDate() && environment();
 
 socketServer.on("connection", async (socket) => {
   console.log("New client connected");
-
+  console.log("URL"+fileURLToPath(import.meta.url));
   socket.emit("products", await response);
 
   socket.on("addproduct", async (newProduct) => {
