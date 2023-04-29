@@ -1,15 +1,15 @@
 import express from "express";
+import { engine } from "express-handlebars";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
+import { Server } from "socket.io";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 import routerProducts from "./routes/products.routes.js";
 import routerCarts from "./routes/carts.routes.js";
 import routerMessage from "./routes/chat.routes.js";
 import routerUser from "./routes/users.routes.js";
 import Handlebars from "handlebars";
-import { engine } from "express-handlebars";
-import { Server } from "socket.io";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { ProductFM } from "./dao/classes/DBmanager.js";
 import { MessageFM } from "./dao/classes/DBmanager.js";
@@ -17,11 +17,11 @@ import { MessageFM } from "./dao/classes/DBmanager.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config();
 
-const app = express(),
-  port = process.env.PORT || 8080,
-  DB_USER = process.env.USER_MONGO,
-  DB_PASS = process.env.PASS_MONGO,
-  DB_NAME = process.env.DB_MONGO;
+const app = express();
+const port = process.env.PORT || 8080;
+const DB_USER = process.env.USER_MONGO;
+const DB_PASS = process.env.PASS_MONGO;
+const DB_NAME = process.env.DB_MONGO;
 
 const httpServer = app.listen(port, () => {
   console.log("Server up in port", port);
@@ -30,7 +30,8 @@ const socketServer = new Server(httpServer);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", routerCarts, routerMessage, routerUser, routerProducts);
+app.use("/api", routerCarts, routerProducts, routerMessage, routerUser);
+
 app.engine(
   "handlebars",
   engine({
@@ -41,32 +42,37 @@ app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 app.use(express.static(__dirname + "/public"));
 
-let response;
+app.get("/", (req, res) => {
+  res.render("index", {});
+});
 
-async function initMessages() {
+let response;
+let Messages = [];
+
+async function initChat(data) {
   try {
-    let Messages = [];
-    Messages = await MessageFM.getMessages();
+    await MessageFM.addMessage(data);
+    Messages.length == 0
+      ? (Messages = await MessageFM.getMessages())
+      : Messages.push(data);
     return Messages;
   } catch (error) {
     return error;
   }
 }
+
 async function initProducts(id) {
-  try {
-    let Products = [];
-    id
-      ? (Products = await ProductFM.getProductId(id))
-      : (Products = await ProductFM.getProducts());
-    return Products;
-  } catch (error) {
-    return error;
+  if (id) {
+    let res = await ProductFM.getProductId(id);
+    let res2= await fetch('http://example.com/movies.json')
+    .then(response => response.json())
+    .then(data => console.log(data));
+    return res;
+  } else {
+    let res = await ProductFM.getProducts();
+    return res;
   }
 }
-
-app.get("/", (req, res) => {
-  res.render("index", {});
-});
 
 app.get("/home", async (req, res) => {
   response = await initProducts();
@@ -85,7 +91,7 @@ app.get("/realtimeproducts/:pid", async (req, res) => {
 });
 
 app.get("/chat", async (req, res) => {
-  response = await initMessages();
+  response = "Bienvenido a la seccion de mensajes: ";
   res.render("chat", { response });
 });
 
@@ -109,23 +115,24 @@ isValidStartDate() && environment();
 
 socketServer.on("connection", async (socket) => {
   console.log("New client connected");
-  socket.emit("backProducts", await response);
-  socket.emit("backMessages", await response);
+  console.log("URL"+fileURLToPath(import.meta.url));
+  socket.emit("products", await response);
 
   socket.on("addproduct", async (newProduct) => {
-    socketServer.emit("f5NewProduct", newProduct);
+    socket.broadcast.emit("f5NewProduct", newProduct);
   });
 
-  socket.on("deleteproduct", async (newStore) => {
-    socketServer.emit("f5deleteProduct", newStore);
+  socket.on("deleteproduct", async (idproduct) => {
+    socket.broadcast.emit("f5deleteProduct", idproduct);
   });
 
-  socket.on("updateproduct", async (updatedStore) => {
-    socket.broadcast.emit("f5updateProduct", updatedStore);
+  socket.on("updateproduct", async (product) => {
+    socket.broadcast.emit("f5updateProduct", product);
   });
 
-  socket.on("updatingProduct", async (updatingMsj) => {
-    socket.broadcast.emit("updatingProduct", updatingMsj);
+  socket.on("updatingProduct", async (msj) => {
+    socket.broadcast.emit("updatingProduct", msj);
+    socket.emit("updatingProduct", msj);
   });
 
   socket.on("exonerarStatus", async (msj) => {
@@ -139,23 +146,25 @@ socketServer.on("connection", async (socket) => {
   });
 
   socket.on("validateStatus", async (productsValid) => {
-    socketServer.emit("actualizar", productsValid);
+    socket.broadcast.emit("actualizar", productsValid);
+    socket.emit("actualizar", productsValid);
   });
 
   socket.on("finExo", async (msj) => {
-    socketServer.emit("finValidate", msj);
+    socket.broadcast.emit("finValidate", msj);
+    socket.emit("finValidate", msj);
   });
 
-  socket.on("newUser", (userNew) => {
-    socket.user = userNew.user;
-    socket.id = userNew.id;
-    socketServer.emit("newUser-connected", {
+  socket.on("new-user", (data) => {
+    socket.user = data.user;
+    socket.id = data.id;
+    socketServer.emit("new-user-connected", {
       user: socket.user,
       id: socket.id,
     });
   });
-
-  socket.on("newMessage", async (lastMessage) => {
-    socketServer.emit("messageLogs", lastMessage);
+  socket.on("message", async (data) => {
+    await initChat(data);
+    socketServer.emit("messageLogs", Messages);
   });
 });
