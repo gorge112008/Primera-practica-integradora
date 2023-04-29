@@ -48,13 +48,11 @@ app.get("/", (req, res) => {
 
 let response;
 let Messages = [];
+let Products = [];
 
-async function initChat(data) {
+async function initChat() {
   try {
-    await MessageFM.addMessage(data);
-    Messages.length == 0
-      ? (Messages = await MessageFM.getMessages())
-      : Messages.push(data);
+    Messages = await MessageFM.getMessages();
     return Messages;
   } catch (error) {
     return error;
@@ -62,15 +60,11 @@ async function initChat(data) {
 }
 
 async function initProducts(id) {
-  if (id) {
-    let res = await ProductFM.getProductId(id);
-    let res2= await fetch('http://example.com/movies.json')
-    .then(response => response.json())
-    .then(data => console.log(data));
-    return res;
-  } else {
-    let res = await ProductFM.getProducts();
-    return res;
+  try {
+    id? Products = await ProductFM.getProductId(id): Products = await ProductFM.getProducts();
+    return Products;
+  } catch (error) {
+    return error;
   }
 }
 
@@ -91,7 +85,7 @@ app.get("/realtimeproducts/:pid", async (req, res) => {
 });
 
 app.get("/chat", async (req, res) => {
-  response = "Bienvenido a la seccion de mensajes: ";
+  response = await initChat();
   res.render("chat", { response });
 });
 
@@ -115,8 +109,8 @@ isValidStartDate() && environment();
 
 socketServer.on("connection", async (socket) => {
   console.log("New client connected");
-  console.log("URL"+fileURLToPath(import.meta.url));
-  socket.emit("products", await response);
+  socket.emit("backMessages",  Messages);
+  socket.emit("backProducts",  Products);
 
   socket.on("addproduct", async (newProduct) => {
     socket.broadcast.emit("f5NewProduct", newProduct);
@@ -155,16 +149,15 @@ socketServer.on("connection", async (socket) => {
     socket.emit("finValidate", msj);
   });
 
-  socket.on("new-user", (data) => {
+  socket.on("newUser", (data) => {
     socket.user = data.user;
     socket.id = data.id;
-    socketServer.emit("new-user-connected", {
+    socketServer.emit("newUser-connected", {
       user: socket.user,
       id: socket.id,
     });
   });
-  socket.on("message", async (data) => {
-    await initChat(data);
-    socketServer.emit("messageLogs", Messages);
+  socket.on("newMessage", async (lastMessage) => {
+    socketServer.emit("messageLogs", lastMessage);
   });
 });

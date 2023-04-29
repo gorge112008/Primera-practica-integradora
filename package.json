@@ -2,7 +2,7 @@
   "name": "primera-practica-integradora",
   "version": "1.0.0",
   "description": "",
-  "main": "Prueba.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:watch": "nodemon src/app.js",
