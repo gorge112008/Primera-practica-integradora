@@ -474,7 +474,7 @@ form.addEventListener("submit", async (e) => {
       .catch((error) => console.log("Error:" + error));
   } else {
     postData(Url, product)
-      .then((data) => {
+      .then(async (data) => {
         if (data == null) {
           Swal.fire({
             title: "Error>> Repeated Code f",
@@ -485,14 +485,18 @@ form.addEventListener("submit", async (e) => {
           inputCode.value = "";
           inputCode.focus();
         } else {
-          Swal.fire({
-            title: "Product Added Successfully!",
-            text: "Registered Product: " + data.tittle,
-            icon: "success",
-            confirmButtonText: "Accept",
-          });
-          form.reset();
-          socket.emit("addproduct", "Se ha agregado un nuevo producto");
+            console.log("CANTIDAD DE STORAGE1"+storeProducts.length);
+            storeProducts= await getData();
+            console.log("CANTIDAD DE STORAGE2"+storeProducts.length);
+            selectDelete();
+            Swal.fire({
+              title: "Product Added Successfully!",
+              text: "Registered Product: " + data.tittle,
+              icon: "success",
+              confirmButtonText: "Accept",
+            });
+            form.reset();
+            socket.emit("addproduct", "Nuevo Producto Agregado");
         }
       })
       .catch((error) => console.log("Error:" + error));

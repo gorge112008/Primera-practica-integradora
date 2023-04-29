@@ -117,16 +117,15 @@ socketServer.on("connection", async (socket) => {
   });
 
   socket.on("deleteproduct", async (idproduct) => {
-    socket.broadcast.emit("f5deleteProduct", idproduct);
+    socketServer.emit("f5deleteProduct", idproduct);
   });
 
   socket.on("updateproduct", async (product) => {
-    socket.broadcast.emit("f5updateProduct", product);
+    socketServer.emit("f5updateProduct", product);
   });
 
   socket.on("updatingProduct", async (msj) => {
-    socket.broadcast.emit("updatingProduct", msj);
-    socket.emit("updatingProduct", msj);
+    socketServer.emit("updatingProduct", msj);
   });
 
   socket.on("exonerarStatus", async (msj) => {
@@ -140,13 +139,11 @@ socketServer.on("connection", async (socket) => {
   });
 
   socket.on("validateStatus", async (productsValid) => {
-    socket.broadcast.emit("actualizar", productsValid);
-    socket.emit("actualizar", productsValid);
+    socketServer.emit("actualizar", productsValid);
   });
 
   socket.on("finExo", async (msj) => {
-    socket.broadcast.emit("finValidate", msj);
-    socket.emit("finValidate", msj);
+    socketServer.emit("finValidate", msj);
   });
 
   socket.on("newUser", (data) => {
