@@ -149,4 +149,16 @@ socketServer.on("connection", async (socket) => {
     socket.emit("finValidate", msj);
   });
 
+  socket.on("newUser", (data) => {
+    socket.user = data.user;
+    socket.id = data.id;
+    socketServer.emit("newUser-connected", {
+      user: socket.user,
+      id: socket.id,
+    });
+  });
+  
+  socket.on("newMessage", async (lastMessage) => {
+    socketServer.emit("messageLogs", lastMessage);
+  });
 });
