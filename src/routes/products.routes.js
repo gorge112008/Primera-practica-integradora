@@ -3,6 +3,8 @@ import { CartFM, ProductFM } from "../dao/classes/DBmanager.js";
 
 const routerProducts = Router();
 
+/*****************************************************************GET*************************************************************/
+
 routerProducts.get("/products", async (req, res) => {
     try {
       let products = await ProductFM.getProducts();
@@ -26,6 +28,8 @@ routerProducts.get("/products/:pid", async (req, res) => {
     }
   });
 
+  /*****************************************************************POST*************************************************************/
+
 routerProducts.post("/products", async (req, res) => {
     try {
       const newProduct =req.body;
@@ -35,6 +39,8 @@ routerProducts.post("/products", async (req, res) => {
       res.status(500).json({error: err});
     }
   });
+
+  /*****************************************************************PUT*************************************************************/
 
   routerProducts.put("/products/:pid", async (req, res) => {
     try {
@@ -47,8 +53,7 @@ routerProducts.post("/products", async (req, res) => {
     } 
   });
 
-  routerProducts.put("/products/:pid", async (req, res) => {
-  });
+/*****************************************************************DELETE*************************************************************/
   
   routerProducts.delete("/products/:pid", async (req, res) => {
     try {
@@ -59,8 +64,10 @@ routerProducts.post("/products", async (req, res) => {
       res.status(500).json({error: err});
     }
   });
-  /*routerProducts.get("*", function (req, res) {
+
+  /****************************************************FINAL ENDPOINTS: GET*************************************************************/
+  routerProducts.get("*", function (req, res) {
     res.status(404).send("The route is incorrect");
-  });*/
+  });
 
   export default routerProducts;

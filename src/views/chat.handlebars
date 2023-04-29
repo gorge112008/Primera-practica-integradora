@@ -3,9 +3,18 @@
   <div class="chat__tittle row"><u>Chat Comunitario</u></div>
   <div class="chat row">
     <div class="chat__container">
-      <b class="chat__container--response"><i>{{response}}</i></b>
+      <b class="chat__container--response"><i>Bienvenido a la seccion de
+          mensajes:
+        </i></b>
       <div class="chat__container__dinamic">
-        <!-- Contain Dinamic -->
+        {{#each response}}
+          <div class="chat__message">
+            <div class="chat__message--bubble">
+              <div class="chat__message--sender">{{user}}</div>
+              <p>{{message}}</p>
+            </div>
+          </div>
+        {{/each}}
       </div>
     </div>
   </div>

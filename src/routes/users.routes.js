@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { ProductFM, CartFM, MessageFM, UserFM} from "../dao/classes/DBmanager.js";
+import { UserFM} from "../dao/classes/DBmanager.js";
 
 const routerUser = Router();
 
+/*****************************************************************GET*************************************************************/
 routerUser.get("/users", async (req, res) => {
   try {
     let users = await UserFM.getUsers();
@@ -26,35 +27,19 @@ routerUser.get("/users/:iud", async (req, res) => {
   }
 });
 
+/*****************************************************************POST*************************************************************/
+
 routerUser.post("/users", async (req, res) => {
   try {
     const newUser = req.body;
-    let productsFind = [];
-    if (newUser.products) {
-      newUser.products.forEach((productItem) => {
-        if (productItem._id) {
-          let find = 0;
-          productsFind.forEach((findItem) => {
-            if (productItem._id == findItem.product) {
-              findItem.quantity++;
-              find = 1;
-            }
-          });
-          if (find == 0) {
-            productsFind.push({ product: productItem._id, quantity: 1 });
-          }
-        }
-      });
-      newUser.products = productsFind;
-      const response = await UserFM.addUser(newUser);
-      res.status(200).send(response);
-    } else {
-      res.status(400).send("Bad Request--> The user is not valid");
-    }
+    const response = await UserFM.addUser(newUser);
+    res.status(200).send(response);
   } catch (err) {
     res.status(500).json({ error: err });
   }
 });
+
+/*****************************************************************DELETE*************************************************************/
 
 routerUser.delete("/users/:iud", async (req, res) => {
   try {

@@ -19,6 +19,11 @@
   display: none !important;
 }
 
+.disabled{
+  pointer-events: none;
+  cursor: default;
+}
+
 /*INDEX BLOCK*/
 .main__container__index {
   height: 90vh;
@@ -796,16 +801,39 @@
   font-size: 2rem;
 }
 
-.chat__login--confirm {
+.chat__login--confirm,.chat__login--exit {
   font-family: "TT Marxiana Trial", sans-serif;
   font-size: 1.25rem;
-  color: rgb(246, 255, 0);
+  color: black;
+}
+.chat__login--confirm:hover,.chat__login--exit:hover {
+  color: white;
+  font-size: 1.375rem;
 }
 
 .chat__login--notification {
   font-size: auto;
   color: black;
   font-family: "Gentium Plus", sans-serif;
+}
+
+.chat__footer--left{
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  color: black;
+}
+
+.chat__footer--right{
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  color: black;
+}
+
+.chat__footer--left:hover,.chat__footer--right:hover{
+  color: blueviolet;
+  cursor: pointer;
 }
 
 /*CHAT CONTAINER BLOCK*/

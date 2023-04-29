@@ -2,7 +2,7 @@ import { Router } from "express";
 import { ProductFM, CartFM, MessageFM} from "../dao/classes/DBmanager.js";
 
 const routerMessage = Router();
-
+/*****************************************************************GET*************************************************************/
   routerMessage.get("/messages", async (req, res) => {
     try {
       let messages = await MessageFM.getMessages();
@@ -25,37 +25,17 @@ const routerMessage = Router();
       res.status(500).json({ error: err });
     }
   });
-  
+  /*****************************************************************POST*************************************************************/
   routerMessage.post("/messages", async (req, res) => {
     try {
-      const newMessage = req.body;
-      let productsFind = [];
-      if (newMessage.products) {
-        newMessage.products.forEach((productItem) => {
-          if (productItem._id) {
-            let find = 0;
-            productsFind.forEach((findItem) => {
-              if (productItem._id == findItem.product) {
-                findItem.quantity++;
-                find = 1;
-              }
-            });
-            if (find == 0) {
-              productsFind.push({ product: productItem._id, quantity: 1 });
-            }
-          }
-        });
-        newMessage.products = productsFind;
+        const newMessage = req.body;
         const response = await MessageFM.addMessage(newMessage);
         res.status(200).send(response);
-      } else {
-        res.status(400).send("Bad Request--> The message is not valid");
-      }
     } catch (err) {
       res.status(500).json({ error: err });
     }
   });
-  
+  /*****************************************************************DELETE*************************************************************/
   routerMessage.delete("/messages/:mid", async (req, res) => {
     try {
       const mid = req.params.mid;

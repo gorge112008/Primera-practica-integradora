@@ -3,10 +3,12 @@ import { cartsModel } from "../models/carts.model.js";
 import { messagesModel } from "../models/messages.model.js";
 import { userModel } from "../models/users.model.js";
 
+/*********************************************************PRODUCTS*************************************************************/
+
 class ProductFileManager {
   async getProducts() {
     try {
-      const products = productsModel.find();
+      const products = await productsModel.find();
       return products;
     } catch (err) {
       throw err;
@@ -14,7 +16,7 @@ class ProductFileManager {
   }
   async getProductId(id) {
     try {
-      const product = productsModel.find({ _id: id });
+      const product = await productsModel.find({ _id: id });
       return product;
     } catch (err) {
       throw err;
@@ -22,7 +24,7 @@ class ProductFileManager {
   }
   async addProduct(newProduct) {
     try {
-      const product = productsModel.create(newProduct);
+      const product = await productsModel.create(newProduct);
       return product;
     } catch (err) {
       throw err;
@@ -50,10 +52,12 @@ class ProductFileManager {
   }
 }
 
+/*********************************************************CARTS*************************************************************/
+
 class CartFileManager {
   async getCarts() {
     try {
-      const carts = cartsModel.find();
+      const carts = await cartsModel.find();
       return carts;
     } catch (err) {
       throw err;
@@ -61,7 +65,7 @@ class CartFileManager {
   }
   async getCartId(id) {
     try {
-      const cart = cartsModel.find({ _id: id });
+      const cart = await cartsModel.find({ _id: id });
       return cart;
     } catch (err) {
       throw err;
@@ -69,7 +73,7 @@ class CartFileManager {
   }
   async addCart(newProduct) {
     try {
-      const cart = cartsModel.create(newProduct);
+      const cart = await cartsModel.create(newProduct);
       return cart;
     } catch (err) {
       throw err;
@@ -77,7 +81,10 @@ class CartFileManager {
   }
   async updateCart(id, body) {
     try {
-      const cart = await cartsModel.updateOne({ _id: id }, body);
+      const cart = await cartsModel.findOneAndUpdate({ _id: id }, body, {
+        new: true,
+        upsert: true,
+      });
       return cart;
     } catch (err) {
       throw err;
@@ -94,10 +101,12 @@ class CartFileManager {
   }
 }
 
+/*********************************************************MESSAGES*************************************************************/
+
 class MessageFileManager {
   async getMessages() {
     try {
-      const messages = messagesModel.find();
+      const messages = await messagesModel.find();
       return messages;
     } catch (err) {
       throw err;
@@ -105,7 +114,7 @@ class MessageFileManager {
   }
   async getMessageId(id) {
     try {
-      const message = messagesModel.find({ _id: id });
+      const message = await messagesModel.find({ _id: id });
       return message;
     } catch (err) {
       throw err;
@@ -113,7 +122,7 @@ class MessageFileManager {
   }
   async addMessage(newMessage) {
     try {
-      const message = messagesModel.create(newMessage);
+      const message = await messagesModel.create(newMessage);
       return message;
     } catch (err) {
       throw err;
@@ -121,8 +130,10 @@ class MessageFileManager {
   }
   async updateMessage(id, body) {
     try {
-      const message = await messagesModel.updateOne({ _id: id }, body);
-      return message;
+      const message = await messagesModel.findOneAndUpdate({ _id: id }, body, {
+        new: true,
+        upsert: true,
+      });
     } catch (err) {
       throw err;
     }
@@ -138,10 +149,12 @@ class MessageFileManager {
   }
 }
 
+/*********************************************************USERS*************************************************************/
+
 class UserFileManager {
   async getUsers() {
     try {
-      const Users = userModel.find();
+      const Users = await userModel.find();
       return Users;
     } catch (err) {
       throw err;
@@ -149,7 +162,7 @@ class UserFileManager {
   }
   async getUserId(id) {
     try {
-      const User = userModel.find({ _id: id });
+      const User = await userModel.find({ _id: id });
       return User;
     } catch (err) {
       throw err;
@@ -157,15 +170,18 @@ class UserFileManager {
   }
   async addUser(newUser) {
     try {
-      const User = userModel.create(newUser);
+      const User = await userModel.create(newUser);
       return User;
     } catch (err) {
       throw err;
     }
   }
   async updateUser(id, body) {
-    try {
-      const User = await userModel.updateOne({ _id: id }, body);
+    try { 
+      const User = await userModel.findOneAndUpdate({_id: id}, body, {
+        new: true,
+        upsert: true,
+      });
       return User;
     } catch (err) {
       throw err;
@@ -181,6 +197,8 @@ class UserFileManager {
     }
   }
 }
+
+/*********************************************************EXPORTS*************************************************************/
 
 export const ProductFM = new ProductFileManager();
 export const CartFM = new CartFileManager();

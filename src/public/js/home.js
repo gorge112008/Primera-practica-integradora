@@ -1,11 +1,15 @@
+/*HOME -- REALTIMEPRODUCTS*/
+
+/**********************************************************CONSTANTES/VARIABLES*************************************************************/
+
 const socket = io();
-let storeProducts = [];
-let URLdomain = window.location.host;
-let protocol = window.location.protocol;
+let URLdomain = window.location.host,
+  protocol = window.location.protocol;
 let Url = protocol + "//" + URLdomain + "/api/products/";
-let btnsDelete;
 let opc = "update";
-let resExo = [];
+let btnsDelete;
+let storeProducts = [],
+  resExo = [];
 
 const containDinamic = document.querySelector(".main__container__dinamic"),
   tittleDinamic = document.querySelector(".dinamic__tittle--h3"),
@@ -22,6 +26,8 @@ const containDinamic = document.querySelector(".main__container__dinamic"),
   contain = document.querySelector(".container__grid"),
   btn_return = document.querySelector("#btn-return");
 
+/*****************************************************************CLASES*************************************************************/
+
 class NewProduct {
   constructor() {
     this.tittle = inputTittle.value;
@@ -37,20 +43,14 @@ class NewProduct {
   }
 }
 
-socket.on("products", async (getProducts) => {
-  Object.assign(storeProducts, getProducts); //ASIGNAR PRODUCTOS AL STORE
-  selectAction(); //SELECCIONAR ACCIONES
-  selectDelete();
-});
+/*****************************************************************FUNCIONES*************************************************************/
 
-//funciones
 async function crearHtml() {
   if (storeProducts.length == 0) {
-    contain.innerHTML = (
-      `<div class="container__empty__card">
+    contain.innerHTML = "";
+    contain.innerHTML = `<div class="container__empty__card">
         <div class="card">
           <div class="card-item">
-            {" "}
             <i class="fa-regular fa-rectangle-xmark"></i>
           </div>
           <div class="card-body">
@@ -68,8 +68,7 @@ async function crearHtml() {
             </button>
           </div>
         </div>
-      </div>`
-    );
+      </div>`;
   } else {
     contain.innerHTML = "";
     let html;
@@ -117,7 +116,6 @@ async function crearHtml() {
         </div>`;
       contain.innerHTML += html;
     }
-    cardUpdate = await document.querySelector(".card__btnUpdate");
     btnsDelete = document.querySelectorAll(".card__btnDelete");
     return btnsDelete;
   }
@@ -134,8 +132,6 @@ function validarUrl() {
 
 async function selectAction() {
   if (storeProducts.length == 1) {
-    //SE ASIGNA LA ACCION DE UPDATE
-    containDinamic.classList.add("updating-product");
     tittleDinamic.innerHTML = "Update Product";
     inputTittle.value = storeProducts[0].tittle;
     inputDescription.value = storeProducts[0].description;
@@ -146,8 +142,8 @@ async function selectAction() {
     formInput.forEach((label) => {
       label.focus();
     });
-    if (opc != "reset") {
-      updateProducts(Url, storeProducts[0]._id, { status: false });
+    if (opc == "update") {
+      updateData(Url, storeProducts[0]._id, { status: false });
       socket.emit(
         "updatingProduct",
         storeProducts[0].tittle + " actualizandose..."
@@ -157,12 +153,95 @@ async function selectAction() {
       selectDelete();
     }
   } else {
-    containDinamic.classList.remove("updating-product");
     tittleDinamic.innerHTML = "Ingresa un producto";
     opc = "update";
   }
 }
 
+async function selectDelete() {
+  btnsDelete = await crearHtml();
+  btnsDelete.forEach((selectBtn) => {
+    selectBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const productoSelect = await getData(selectBtn.id);
+      Swal.fire({
+        title:
+          "YOU WANT TO DELETE THE PRODUCT " +
+          productoSelect[0].tittle.toUpperCase() +
+          " ?",
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: "YES",
+        denyButtonText: "NOT",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          deleteData(Url, selectBtn.id)
+            .then(async (data) => {
+              storeProducts = await getData();
+              selectDelete();
+              Swal.fire({
+                title: "Product Removed Successfully!!!",
+                text:
+                  "Product Removed>> " +
+                  "ID: " +
+                  data +
+                  " --> " +
+                  productoSelect[0].tittle,
+                icon: "success",
+                confirmButtonText: "Accept",
+              });
+              socket.emit("deleteproduct", "Producto Eliminado");
+            })
+            .catch((error) => console.log("Error:" + error));
+        } else if (result.isDenied) {
+          Swal.fire("ACTION CANCELED", "", "info");
+        }
+      });
+    });
+  });
+}
+
+function saveUpdate(data) {
+  Swal.fire({
+    title: "ESTA SEGURO DE MODIFICAR EL PRODUCTO?",
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: "SI",
+    denyButtonText: "NO",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        position: "center",
+        text: "Updated Product: " + data.tittle,
+        icon: "success",
+        title: "Product Update Successfully!",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
+      socket.emit("updateproduct", "Se ha actualizado un producto");
+      setTimeout(() => {
+        window.location.href = "../realtimeproducts";
+      }, 1000);
+    } else if (result.isDenied) {
+      Swal.fire("ACCIÓN CANCELADA", "", "info");
+      return;
+    }
+  });
+}
+
+async function validarStatus(idExo) {
+  let getProducts = await getData();
+  for (const product of getProducts) {
+    if (idExo.includes(product._id)) continue;
+    if (product.status == false) {
+      updateData(Url, product._id, { status: true });
+    }
+  }
+  const newProducts = await getData();
+  return newProducts;
+}
+
+/*INICIO FUNCIONES CRUD*/
 async function getData(id) {
   try {
     if (id) {
@@ -190,6 +269,54 @@ async function getData(id) {
   }
 }
 
+async function postData(url, data) {
+  try {
+    let response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+      mode: "cors",
+      body: JSON.stringify(data),
+    });
+    if (response.status == 400) {
+      console.warn("Error en el cliente");
+      return;
+    } else if (response.status == 200) {
+      return response.json();
+    }
+  } catch {
+    console.log(Error);
+  }
+}
+
+async function updateData(url, id, data) {
+  try {
+    let key = url + id;
+    let response = await fetch(key, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+      mode: "cors",
+      body: JSON.stringify(data),
+    });
+    if (response.status == 400) {
+      console.warn("Error en el cliente");
+      return;
+    } else if (response.status == 200) {
+      const datos = await response.json();
+      return datos;
+    }
+  } catch {
+    console.log(Error);
+  }
+}
+
 async function deleteData(url, id) {
   try {
     let key = url + id;
@@ -204,168 +331,42 @@ async function deleteData(url, id) {
     console.log(Error);
   }
 }
+/*FIN FUNCIONES CRUD*/
 
-async function postData(url, data) {
-  try {
-    let response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true,
-      mode: "cors",
-      body: JSON.stringify(data),
-    });
-    if (response.status == 400) {
-      console.log("Error en el servidor");
-      return;
-    } else if (response.status == 200) {
-      return response.json();
-    }
-  } catch {
-    console.log(Error);
-  }
-}
+/*****************************************************************SOCKETS*************************************************************/
 
-async function updateProducts(url, id, data) {
-  try {
-    let key = url + id;
-    let response = await fetch(key, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true,
-      mode: "cors",
-      body: JSON.stringify(data),
-    });
-    if (response.status == 400) {
-      return;
-    } else if (response.status == 200) {
-      const datos = await response.json();
-      return datos;
-    }
-  } catch {
-    console.log(Error);
-  }
-}
-
-inputThumbnail.addEventListener("click", () => {
-  inputThumbnail.select();
-});
-
-async function selectDelete() {
-  btnsDelete = await crearHtml();
-  btnsDelete.forEach((selectBtn) => {
-    selectBtn.addEventListener("click", async () => {
-      storeProducts.forEach((searchID) => {
-        if (searchID._id == selectBtn.id) {
-          Swal.fire({
-            title:
-              "YOU WANT TO DELETE THE PRODUCT " +
-              searchID.tittle.toUpperCase() +
-              " ?",
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: "YES",
-            denyButtonText: "NOT",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              deleteData(Url, searchID._id)
-                .then(async (data) => {
-                  storeProducts = await getData();
-                  selectDelete();
-                  Swal.fire({
-                    title: "Product Removed Successfully!!!",
-                    text:
-                      "Product Removed>> " +
-                      "ID: " +
-                      data +
-                      " --> " +
-                      searchID.tittle,
-                    icon: "success",
-                    confirmButtonText: "Accept",
-                  });
-                  socket.emit("deleteproduct", "Producto Eliminado");
-                })
-                .catch((error) => console.log("Error:" + error));
-            } else if (result.isDenied) {
-              Swal.fire("ACTION CANCELED", "", "info");
-            }
-          });
-        }
-      });
-    });
-  });
-}
-
-async function pushData(data) {
-  storeProducts = await getData();
+socket.on("backProducts", async (getProducts) => {
+  Object.assign(storeProducts, getProducts); //ASIGNAR PRODUCTOS AL STORE
+  selectAction(); //SELECCIONAR ACCIONES
   selectDelete();
-  Swal.fire({
-    title: "Product Added Successfully!",
-    text: "Registered Product: " + data.tittle,
-    icon: "success",
-    confirmButtonText: "Accept",
-  });
-  form.reset();
-  socket.emit("addproduct", "Nuevo Producto Agregado");
-}
+});
 
-function updateData(data) {
-  Swal.fire({
-    title: "ESTA SEGURO DE MODIFICAR EL PRODUCTO?",
-    showDenyButton: true,
-    showCancelButton: false,
-    confirmButtonText: "SI",
-    denyButtonText: "NO",
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        position: "center",
-        text: "Updated Product: " + data.tittle,
-        icon: "success",
-        title: "Product Update Successfully!",
-        showConfirmButton: false,
-      });
-      socket.emit("updateproduct", "Datos Actualizados");
-      setTimeout(() => {
-        window.location.href = "../realtimeproducts";
-      }, 1500);
-    } else if (result.isDenied) {
-      Swal.fire("ACCIÓN CANCELADA", "", "info");
-      return;
-    }
-  });
-}
-socket.on("f5NewProduct", async (msj) => {
-  console.log(msj);
+socket.on("f5NewProduct", async (addMsj) => {
+  console.log(addMsj);
   if (storeProducts.length != 1) {
     storeProducts = await getData();
     selectDelete();
   }
 });
 
-socket.on("f5deleteProduct", async (msj) => {
-  console.log(msj);
+socket.on("f5deleteProduct", async (deletedMsj) => {
+  console.log(deletedMsj);
   if (storeProducts.length != 1) {
     storeProducts = await getData();
     selectDelete();
   }
 });
 
-socket.on("f5updateProduct", async (msj) => {
-  console.log(msj);
+socket.on("f5updateProduct", async (updatedMsj) => {
+  console.log(updatedMsj);
   if (storeProducts.length != 1) {
     storeProducts = await getData();
     selectDelete();
   }
 });
 
-socket.on("updatingProduct", async (msj) => {
-  console.log(msj);
+socket.on("updatingProduct", async (updatingMsj) => {
+  console.log(updatingMsj);
   if (storeProducts.length != 1) {
     storeProducts = await getData();
     selectDelete();
@@ -374,17 +375,36 @@ socket.on("updatingProduct", async (msj) => {
   }
 });
 
-formCancel.onclick = () => {
+socket.on("ordenExonerar", async (msj) => {
+  console.log(msj);
   if (storeProducts.length == 1) {
-    updateProducts(Url, storeProducts[0]._id, { status: true });
-    socket.emit("updateproduct", "Productos Actualizados");
-    window.location.href = "../realtimeproducts";
-  } else {
-    form.reset();
+    socket.emit("responseExonerar", storeProducts[0]._id);
+    //console.log("Response de producto a exonerar emitido");
   }
-};
+});
 
-//***************************** PROCESO DE VALIDACION DE PRODUCTOS OCULTOS *********************************************//
+socket.on("idExonerar", async (id) => {
+  //console.log("Id de exoneracion recibida: "+id);
+  resExo.push(id);
+  //console.log("Id de exoneracion agregada: "+resExo);
+});
+
+socket.on("actualizar", async (products) => {
+  console.log("Validacion Exitosa");
+  if (storeProducts.length != 1) {
+    storeProducts = products;
+    selectDelete();
+  }
+});
+
+socket.on("finValidate", async (msj) => {
+  console.log(msj);
+  validateProducts.classList.add("hidden");
+});
+
+/*****************************************************************EVENTOS*************************************************************/
+
+//PROCESO DE VALIDACION DE PRODUCTOS OCULTOS//
 
 /*CUANDO UN USUARIO EDITA UN PRODUCTO, EL PRODUCTO ADQUIERE UNA PROPIEDAD DE STATUS FALSE, ESTO EVITARIA QUE OTRO USUARIO
 EDITE AL MISMO TIEMPO EL MISMO PRODUCTO. PERO SI EL USUARIO EDITOR NO GUARDA NI CANCELA LA EDICION, EL PRODUCTO QUEDA CON STATUS FALSE
@@ -417,50 +437,26 @@ validateProducts.onclick = async () => {
     console.log("Error al Validando Productos");
   }
 };
-socket.on("ordenExonerar", async (msj) => {
-  console.log(msj);
+
+formCancel.onclick = () => {
   if (storeProducts.length == 1) {
-    socket.emit("responseExonerar", storeProducts[0]._id);
-    //console.log("Response de producto a exonerar emitido");
+    updateData(Url, storeProducts[0]._id, { status: true });
+    socket.emit("updateproduct", "Productos Actualizados");
+    window.location.href = "../realtimeproducts";
+  } else {
+    form.reset();
   }
-});
+};
 
-socket.on("idExonerar", async (id) => {
-  //console.log("Id de exoneracion recibida: "+id);
-  resExo.push(id);
-  //console.log("Id de exoneracion agregada: "+resExo);
+inputThumbnail.addEventListener("click", () => {
+  inputThumbnail.select();
 });
-
-socket.on("actualizar", async (products) => {
-  console.log("Validacion Exitosa");
-  if (storeProducts.length != 1) {
-    storeProducts = products;
-    selectDelete();
-  }
-});
-
-socket.on("finValidate", async (msj) => {
-  console.log(msj);
-  validateProducts.classList.add("hidden");
-});
-
-async function validarStatus(idExo) {
-  let getProducts = await getData();
-  for (const product of getProducts) {
-    if (idExo.includes(product._id)) continue;
-    if (product.status == false) {
-      updateProducts(Url, product._id, { status: true });
-    }
-  }
-  const newProducts = await getData();
-  return newProducts;
-}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const product = new NewProduct();
   if (storeProducts.length == 1) {
-    updateProducts(Url, storeProducts[0]._id, product)
+    updateData(Url, storeProducts[0]._id, product)
       .then((data) => {
         if (data == null) {
           Swal.fire({
@@ -472,7 +468,7 @@ form.addEventListener("submit", async (e) => {
           inputCode.value = "";
           inputCode.focus();
         } else {
-          updateData(data);
+          saveUpdate(data);
         }
       })
       .catch((error) => console.log("Error:" + error));
@@ -489,8 +485,14 @@ form.addEventListener("submit", async (e) => {
           inputCode.value = "";
           inputCode.focus();
         } else {
+          Swal.fire({
+            title: "Product Added Successfully!",
+            text: "Registered Product: " + data.tittle,
+            icon: "success",
+            confirmButtonText: "Accept",
+          });
           form.reset();
-          pushData(data);
+          socket.emit("addproduct", "Se ha agregado un nuevo producto");
         }
       })
       .catch((error) => console.log("Error:" + error));

@@ -3,6 +3,7 @@ import { CartFM, ProductFM } from "../dao/classes/DBmanager.js";
 
 const routerCarts = Router();
 
+/*****************************************************************GET*************************************************************/
 routerCarts.get("/carts", async (req, res) => {
   try {
     let carts = await CartFM.getCarts();
@@ -25,6 +26,8 @@ routerCarts.get("/carts/:cid", async (req, res) => {
     res.status(500).json({ error: err });
   }
 });
+
+/*****************************************************************POST*************************************************************/
 
 routerCarts.post("/carts", async (req, res) => {
   try {
@@ -91,6 +94,8 @@ routerCarts.post("/carts/:cid/products/:pid", async function (req, res) {
     res.status(500).send(console.log(error));
   }
 });
+
+/*****************************************************************DELETE*************************************************************/
 
 routerCarts.delete("/carts/:cid", async (req, res) => {
   try {
