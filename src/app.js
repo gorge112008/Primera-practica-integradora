@@ -46,9 +46,10 @@ app.get("/", (req, res) => {
   res.render("index", {});
 });
 
-let response;
-let Messages = [];
-let Products = [];
+let resProducts,
+    resMessages;
+let Messages = [],
+    Products = [];
 
 async function initChat() {
   try {
@@ -60,33 +61,34 @@ async function initChat() {
 }
 
 async function initProducts(id) {
-  try {
-    id? Products = await ProductFM.getProductId(id): Products = await ProductFM.getProducts();
+  if (id) {
+    let Products = await ProductFM.getProductId(id);
     return Products;
-  } catch (error) {
-    return error;
+  } else {
+    let Products = await ProductFM.getProducts();
+    return Products;
   }
 }
 
 app.get("/home", async (req, res) => {
-  response = await initProducts();
-  res.render("home", { response });
+  resProducts = await initProducts();
+  res.render("home", { resProducts });
 });
 
 app.get("/realtimeproducts", async (req, res) => {
-  response = await initProducts();
-  res.render("realtimeproducts", { response });
+  resProducts = await initProducts();
+  res.render("realtimeproducts", { resProducts });
 });
 
 app.get("/realtimeproducts/:pid", async (req, res) => {
   let pid = req.params.pid;
-  response = await initProducts(pid);
-  res.render("realtimeproducts", { response });
+  resProducts = await initProducts(pid);
+  res.render("realtimeproducts", { resProducts });
 });
 
 app.get("/chat", async (req, res) => {
-  response = await initChat();
-  res.render("chat", { response });
+  resMessages = await initChat();
+  res.render("chat", { resMessages });
 });
 
 const environment = async () => {
@@ -109,8 +111,8 @@ isValidStartDate() && environment();
 
 socketServer.on("connection", async (socket) => {
   console.log("New client connected");
-  socket.emit("backMessages",  Messages);
-  socket.emit("backProducts",  Products);
+  socket.emit("backMessages",  await resMessages);
+  socket.emit("backProducts",  await resProducts);
 
   socket.on("addproduct", async (newProduct) => {
     socket.broadcast.emit("f5NewProduct", newProduct);
@@ -121,7 +123,7 @@ socketServer.on("connection", async (socket) => {
   });
 
   socket.on("updateproduct", async (product) => {
-    socketServer.emit("f5updateProduct", product);
+    socket.broadcast.emit("f5updateProduct", product);
   });
 
   socket.on("updatingProduct", async (msj) => {

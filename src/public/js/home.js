@@ -177,8 +177,6 @@ async function selectDelete() {
         if (result.isConfirmed) {
           deleteData(Url, selectBtn.id)
             .then(async (data) => {
-              storeProducts = await getData();
-              selectDelete();
               Swal.fire({
                 title: "Product Removed Successfully!!!",
                 text:
@@ -354,6 +352,17 @@ socket.on("f5deleteProduct", async (deletedMsj) => {
   if (storeProducts.length != 1) {
     storeProducts = await getData();
     selectDelete();
+  }else{
+    setTimeout(() => {
+      window.location.href = "../realtimeproducts";
+    }, 1000),
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Producto Eliminado Correctamente",
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
   }
 });
 
@@ -485,9 +494,7 @@ form.addEventListener("submit", async (e) => {
           inputCode.value = "";
           inputCode.focus();
         } else {
-            console.log("CANTIDAD DE STORAGE1"+storeProducts.length);
             storeProducts= await getData();
-            console.log("CANTIDAD DE STORAGE2"+storeProducts.length);
             selectDelete();
             Swal.fire({
               title: "Product Added Successfully!",
