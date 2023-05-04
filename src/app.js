@@ -30,7 +30,7 @@ const socketServer = new Server(httpServer);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", routerCarts, routerProducts, routerMessage, routerUser);
+app.use("/api", routerCarts, routerMessage, routerUser, routerProducts);
 
 app.engine(
   "handlebars",
